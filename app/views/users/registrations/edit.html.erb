@@ -33,17 +33,27 @@
 
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
+    <%= f.password_field :current_password, autocomplete: "off", required: true %>
   </div>
 
   <div class="field">
     <%= f.label :birth_date %><br />
-    <%= f.date_field :birth_date, start_date: 1994 %>
+    <%= f.date_field :birth_date %>
   </div>
 
   <div class="field">
     <%= f.label :gender %><br />
     <%= f.select :gender , options_for_select(User::GENDERS), prompt: "Please Enter a value" %>
+  </div>
+
+  <div class="field">
+    <div>
+      <%= image_tag resource.profile_picture_path(:thumb) %>
+    </div>
+    <%= f.label :attachment %>
+    <%= f.fields_for :attachment, get_attachment_object(resource) do |image_form| %>
+      <%= image_form.file_field :image %>
+    <% end %>
   </div>
 
   <div class="actions">

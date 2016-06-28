@@ -1,3 +1,13 @@
 <h1>Welcome</h1>
-
+<div>
+  <%= image_tag current_user.profile_picture_path(:medium) %>
+</div>
+<div class='bold'> name: </div>
+<p>
+  <%= current_user.full_name %>
+</p>
+<div class='bold'> email: </div>
+<p>
+  <%= current_user.email %>
+</p>
 <%= link_to "Sign Out" , destroy_user_session_path , method: :delete %>
