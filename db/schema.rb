@@ -43,10 +43,10 @@ ActiveRecord::Schema.define(version: 20160628162219) do
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "movies", force: :cascade do |t|
-    t.string   "title",        limit: 255
+    t.string   "title",        limit: 50
     t.date     "release_date"
-    t.string   "genre",        limit: 255
-    t.integer  "duration",     limit: 4
+    t.string   "genre",        limit: 20
+    t.integer  "duration",     limit: 8
     t.text     "description",  limit: 65535
     t.text     "trailer_url",  limit: 65535
     t.boolean  "featured"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 20160628162219) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
+
+  add_index "movies", ["genre"], name: "index_movies_on_genre", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",             limit: 50
