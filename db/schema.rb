@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627110917) do
+ActiveRecord::Schema.define(version: 20160628104720) do
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "attachable_id",      limit: 4
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(version: 20160627110917) do
   end
 
   add_index "attachments", ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable_type_and_attachable_id", using: :btree
+
+  create_table "movies", force: :cascade do |t|
+    t.string   "title",        limit: 255
+    t.date     "release_date"
+    t.string   "genre",        limit: 255
+    t.integer  "duration",     limit: 4
+    t.text     "description",  limit: 65535
+    t.text     "trailer_url",  limit: 65535
+    t.boolean  "featured"
+    t.boolean  "approved"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",             limit: 50
