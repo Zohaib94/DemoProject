@@ -28,6 +28,7 @@
         <td><%= movie.trailer_url %></td>
         <td><%= movie.featured %></td>
         <td><%= movie.approved %></td>
+        <td><%= render partial: "images" , locals: { attachments: movie.attachments } %></td>
         <td><%= link_to 'Show', movie %></td>
         <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
         <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>

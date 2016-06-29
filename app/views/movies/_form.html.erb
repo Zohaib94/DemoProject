@@ -1,4 +1,4 @@
-<%= form_for(@movie) do |f| %>
+<%= nested_form_for(@movie) do |f| %>
   <% if @movie.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
@@ -43,6 +43,18 @@
   <div class="field">
     <%= f.label :approved %><br>
     <%= f.check_box :approved %>
+  </div>
+
+  <div class="field">
+    <div>
+      <%= f.fields_for :attachments do |attachment_form| %>
+        <%= attachment_form.file_field :image %>
+        <%= attachment_form.link_to_remove "Remove this attachment" %>
+      <% end %>
+    </div>
+    <div>
+      <%= f.link_to_add "Add an attachment", :attachments %>
+    </div>
   </div>
 
   <div class="actions">
