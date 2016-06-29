@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629072157) do
+ActiveRecord::Schema.define(version: 20160629092041) do
 
   create_table "actors", force: :cascade do |t|
     t.string   "first_name", limit: 30
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20160629072157) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  create_table "appearances", force: :cascade do |t|
+    t.integer  "movie_id",   limit: 4
+    t.integer  "actor_id",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "appearances", ["actor_id"], name: "index_appearances_on_actor_id", using: :btree
+  add_index "appearances", ["movie_id"], name: "index_appearances_on_movie_id", using: :btree
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "attachable_id",      limit: 4
@@ -95,4 +105,6 @@ ActiveRecord::Schema.define(version: 20160629072157) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "appearances", "actors"
+  add_foreign_key "appearances", "movies"
 end

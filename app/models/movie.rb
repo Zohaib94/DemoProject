@@ -6,6 +6,8 @@ class Movie < ActiveRecord::Base
   validates :duration, numericality: { greater_than: -1 }
 
   has_many :attachments, as: :attachable, dependent: :destroy
+  has_many :appearances
+  has_many :actors, through: :appearances
 
   accepts_nested_attributes_for :attachments, allow_destroy: true , reject_if: proc { |attributes| attributes['image'].blank? }
 end
