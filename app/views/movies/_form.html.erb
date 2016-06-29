@@ -46,6 +46,7 @@
   </div>
 
   <div class="field">
+    <%= f.label :posters %>
     <div>
       <%= f.fields_for :attachments do |attachment_form| %>
         <%= attachment_form.file_field :image %>
@@ -55,6 +56,11 @@
     <div>
       <%= f.link_to_add "Add an attachment", :attachments %>
     </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :actors %>
+    <%= f.select :actor_ids,@actors_list, {}, {multiple: true} %>
   </div>
 
   <div class="actions">

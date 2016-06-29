@@ -16,6 +16,9 @@
 </p>
 
 <p>
+  <strong>Actors:</strong>
+  <%= render partial: 'actors', locals: { actors: @movie.actors } %>
+<p>
   <strong>Duration:</strong>
   <%= @movie.duration %>
 </p>

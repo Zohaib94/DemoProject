@@ -10,9 +10,14 @@ class MoviesController < ApplicationController
 
   def new
     @movie = Movie.new
+    @actors = Actor.all
+    @actors_list = @actors.collect{|actor| [actor.name, actor.id]}
   end
 
   def edit
+    @actors = Actor.all
+    @selected = @movie.actors.pluck(:id)
+    @actors_list = @actors.collect{|actor| [actor.name, actor.id]}
   end
 
   def create
@@ -56,6 +61,6 @@ class MoviesController < ApplicationController
     end
 
     def movie_params
-      params.require(:movie).permit(:title, :release_date, :genre, :duration, :description, :trailer_url, :featured, :approved, attachments_attributes: [:id, :image, :_destroy])
+      params.require(:movie).permit(:title, :release_date, :genre, :duration, :description, :trailer_url, :featured, :approved, attachments_attributes: [:id, :image, :_destroy], actor_ids: [])
     end
 end
