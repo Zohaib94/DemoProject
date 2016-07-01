@@ -11,7 +11,6 @@ class MoviesController < ApplicationController
   def new
     @movie = Movie.new
     @actors = Actor.all
-    @actors_list = @actors.collect{|actor| [actor.name, actor.id]}
   end
 
   def edit
@@ -28,6 +27,7 @@ class MoviesController < ApplicationController
         format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
         format.json { render :show, status: :created, location: @movie }
       else
+        @actors = Actor.all
         format.html { render :new }
         format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
@@ -40,6 +40,8 @@ class MoviesController < ApplicationController
         format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
         format.json { render :show, status: :ok, location: @movie }
       else
+        @actors = Actor.all
+        @selected = @movie.actors.pluck(:id)
         format.html { render :edit }
         format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
