@@ -9,19 +9,16 @@
   <body>
     <div id="wrapper">
       <div id="header">
-        <%= render 'layouts/header' %>
+        <%= render 'shared/header' %>
       </div>
       <div id="content">
-          <div class="col-md-2 col-centered">
-            <div class="col-md-8 col-centered">
-              <p><%= notice %></p>
-              <p><%= alert %></p>
-            </div>
+          <div class="col-md-8 col-md-offset-2 col-centered">
+            <%= render partial: 'shared/alerts' %>
           </div>
           <%= yield %>
       </div>
       <div id="footer">
-        <%= render 'layouts/footer' %>
+        <%= render 'shared/footer' %>
       </div>
     </div>
   </body>

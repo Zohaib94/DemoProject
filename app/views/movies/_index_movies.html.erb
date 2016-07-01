@@ -1,0 +1,13 @@
+<% movies.in_groups_of(3, false).each do |movie_group| %>
+  <div class="row title-margin">
+    <% movie_group.each do |movie| %>
+      <div class="col-md-3 index-margin large-font">
+        <%= link_to image_tag(movie.return_image_path , size: "300x300"), movie %>
+        <div id="center-align" class='bold large-font title-margin'>
+          <%= movie.title %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <hr/>
+<% end %>

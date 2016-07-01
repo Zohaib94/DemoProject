@@ -26,7 +26,7 @@
           </div>
           <div class="field form-group">
             <%= f.label :genre %><br>
-            <%= f.text_field :genre, class: "form-control" %>
+            <%= f.select :genre, Movie::GENRES, {prompt: 'Please select'}, {class: "dropdown-toggle form-control"} %>
           </div>
           <div class="field form-group">
             <%= f.label :duration %><br>
@@ -65,9 +65,13 @@
             <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'name', @selected), {}, {multiple: true, class: 'form-control'} %>
           </div>
           <div class="actions form-group">
-            <%= f.submit button_title('Movie'), class: 'btn btn-success col-centered' %>
+            <%= f.submit button_title('Movie'), class: 'btn btn-success col-centered form-control' %>
           </div>
+          <% if action_name == "edit" %>
+            <%= link_to 'Show', @movie , class: "btn btn-default form-control bottom-margin" %>
+          <% end %>
         <% end %>
+        <%= link_to 'Back', movies_path, class: "btn btn-default col-centered form-control" %>
       </div>
     </div>
   </div>

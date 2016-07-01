@@ -40,3 +40,28 @@ body {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+iframe {
+  height: 480px;
+  width: 640px;
+  resize: both;
+  overflow: auto;
+}
+.index-margin {
+  margin-right: 50px;
+  margin-left: 50px;
+}
+#center-align {
+  text-align: center;
+}
+.round-borders {
+  border-radius: 10px;
+}
+.large-font {
+  font-size: 22px;
+}
+.title-margin {
+  margin-top: 20px;
+}
+.bottom-margin {
+  margin-bottom: 50px;
+}

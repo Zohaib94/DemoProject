@@ -1,47 +1,48 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="round-borders">
+        <%= render partial: 'image', locals: { attachment: @movie.attachments.first } %>
+      </div>
+      <hr/>
+      <div>
+        <h2> All Images </h2>
+        <%= render partial: 'images', locals: { attachments: @movie.attachments } %>
+      </div>
+      <% if user_signed_in? %>
+        <%= link_to 'Edit', edit_movie_path(@movie), class: "btn btn-default" %>
+      <% end %>
+      <%= link_to 'Back', movies_path, class: "btn btn-default" %>
+    </div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @movie.title %>
-</p>
-
-<p>
-  <strong>Release date:</strong>
-  <%= @movie.release_date %>
-</p>
-
-<p>
-  <strong>Genre:</strong>
-  <%= @movie.genre %>
-</p>
-
-<p>
-  <strong>Actors:</strong>
-  <%= render partial: 'actors', locals: { actors: @movie.actors } %>
-<p>
-  <strong>Duration:</strong>
-  <%= @movie.duration %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= raw(@movie.description) %>
-</p>
-
-<p>
-  <strong>Trailer url:</strong>
-  <%= raw(@movie.trailer_url) %>
-</p>
-
-<p>
-  <strong>Featured:</strong>
-  <%= @movie.featured %>
-</p>
-
-<p>
-  <strong>Approved:</strong>
-  <%= @movie.approved %>
-</p>
-
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
+    <div class="col-md-8">
+      <div class='row'>
+        <div class="col-md-2">
+          <div><strong>Title</strong></div>
+          <div><strong>Release Date</strong></div>
+          <div><strong>Genre</strong></div>
+          <div><strong>Duration</strong></div>
+          <div><strong>Description</strong></div>
+        </div>
+        <div class="col-md-4">
+          <div><%= @movie.title %></div>
+          <div><%= @movie.release_date %></div>
+          <div><%= @movie.genre %></div>
+          <div><%= @movie.duration %> minutes</div>
+          <div><%= raw(@movie.description) %></div>
+        </div>
+        <div class="col-md-2">
+          <div>
+            <strong>Actors</strong>
+          </div>
+          <div>
+            <%= render partial: 'actors', locals: { actors: @movie.actors } %>
+          </div>
+        </div>
+      </div>
+      <div id="trailer" class='row'>
+        <%= raw(@movie.trailer_url) %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,42 +1,7 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-2 col-centered bottom-margin">
+  <h1>Movies</h1>
+</div>
 
-<h1>Listing Movies</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Release date</th>
-      <th>Genre</th>
-      <th>Duration</th>
-      <th>Description</th>
-      <th>Trailer url</th>
-      <th>Featured</th>
-      <th>Approved</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><%= movie.title %></td>
-        <td><%= movie.release_date %></td>
-        <td><%= movie.genre %></td>
-        <td><%= movie.duration %></td>
-        <td><%= movie.description %></td>
-        <td><%= movie.trailer_url %></td>
-        <td><%= movie.featured %></td>
-        <td><%= movie.approved %></td>
-        <td><%= render partial: "images" , locals: { attachments: movie.attachments } %></td>
-        <td><%= link_to 'Show', movie %></td>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-        <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Movie', new_movie_path %>
+<div class="col-md-8 col-centered">
+  <%= render partial: 'index_movies', locals: { movies: @movies } %>
+</div>
