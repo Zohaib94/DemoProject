@@ -1,6 +1,6 @@
-<% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
+<% flash.each do |type, message| %>
+  <div class="m-xs alert <%= alert_class_for(type) %> alert-dismissible fade in">
+    <button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
+    <%= message %>
+  </div>
 <% end %>
