@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="col-md-offset-1">
+    <div class="col-md-3">
+      <%= image_tag '/logo.png', class: "inline-element" %>
+    </div>
+    <div class="col-md-8">
+      <h1 class="inline-element" id="heading">Movie Time</h1>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-8 col-centered">
+  <h2 class="sub-heading">Featured</h2>
+  <%= render partial: 'movies/index_movies', locals: { movies: @featured } %>
+  <div class="div-center">
+    <%= link_to 'View all', movies_path(type: 'featured'), class: 'btn btn-default' %>
+  </div>
+</div>
+
+<div class="col-md-8 col-centered">
+  <h2 class="sub-heading">Latest</h2>
+  <%= render partial: 'movies/index_movies', locals: { movies: @latest } %>
+  <div class="div-center">
+    <%= link_to 'View all', movies_path(type: 'latest'), class: 'btn btn-default' %>
+  </div>
+</div>

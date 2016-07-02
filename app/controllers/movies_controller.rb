@@ -1,11 +1,9 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  def index
-    @movies = Movie.all
-  end
 
-  def show
+  def index
+    @movies = Movie::return_movies(params[:type])
   end
 
   def new
