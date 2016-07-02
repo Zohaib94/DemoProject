@@ -1,4 +1,5 @@
 class Movie < ActiveRecord::Base
+  paginates_per 12
 
   validates :title, :description, presence: true
   validates :title, uniqueness: true
