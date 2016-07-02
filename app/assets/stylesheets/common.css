@@ -42,7 +42,7 @@ body {
 }
 iframe {
   height: 480px;
-  width: 640px;
+  width: 840px;
   resize: both;
   overflow: auto;
 }
@@ -64,4 +64,22 @@ iframe {
 }
 .bottom-margin {
   margin-bottom: 50px;
+}
+.inline-element {
+  display: inline;
+  float: left;
+}
+#heading {
+  margin-top: 30px;
+  font-size: 100px;
+  font-family: 'Roboto Slab', serif;
+}
+.sub-heading {
+  font-family: 'Lora', serif;
+  text-align: center;
+  font-size: 35px;
+}
+.div-right {
+  margin-left: 94%;
+  margin-right: 6%;
 }

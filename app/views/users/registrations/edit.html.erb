@@ -40,7 +40,7 @@
           </div>
           <div class="field form-group">
             <%= f.label :gender %><br />
-            <%= f.select :gender , options_for_select(User::GENDERS), prompt: "Please Enter a value" %>
+            <%= f.select :gender , options_for_select(User::GENDERS), {prompt: 'Please Select'}, {class: "dropdown-toggle form-control"} %>
           </div>
           <div class="field form-group">
             <div>
@@ -55,9 +55,9 @@
             <%= f.submit "Update", class: "btn btn-success form-control" %>
           </div>
         <% end %>
-        <%= link_to "Back", :back , class: "btn btn-default form-control" %>
+        <%= link_to "Back", :back , class: "btn btn-default form-control margin" %>
+        <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-default col-centered form-control margin" %>
       </div>
     </div>
-    <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-default col-centered" %>
   </div>
 </div>
