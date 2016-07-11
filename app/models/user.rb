@@ -4,10 +4,11 @@ class User < ActiveRecord::Base
 
   has_one :attachment, as: :attachable
   has_many :reviews
+  has_many :ratings
 
   accepts_nested_attributes_for :attachment
 
-  GENDERS =  ['Male', 'Female']
+  GENDERS =  %w(Male Female)
 
   validates :first_name, :last_name, :birth_date, presence: true
   validates :gender, inclusion: { in: %w(Male Female), message: "%{value} is not valid" }

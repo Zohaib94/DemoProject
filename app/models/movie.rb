@@ -10,6 +10,7 @@ class Movie < ActiveRecord::Base
   has_many :appearances, dependent: :destroy
   has_many :actors, through: :appearances
   has_many :reviews
+  has_many :ratings
 
   accepts_nested_attributes_for :attachments, allow_destroy: true , reject_if: proc { |attributes| attributes['image'].blank? }
 
