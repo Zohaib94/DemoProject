@@ -1,0 +1,2 @@
+$('div#' + "review-<%= @review.id %>").replaceWith("<%= j (render partial: 'review', locals: { review: @review }) %>");
+$('#review-form').slideUp(350);

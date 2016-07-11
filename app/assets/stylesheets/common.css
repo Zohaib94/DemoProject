@@ -83,3 +83,9 @@ iframe {
   margin-left: 47%;
   margin-right: 53%;
 }
+.hide-element {
+  display: none;
+}
+.wide-text-area {
+  width: 100%;
+}

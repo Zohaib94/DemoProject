@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629092041) do
+ActiveRecord::Schema.define(version: 20160711055456) do
 
   create_table "actors", force: :cascade do |t|
     t.string   "first_name", limit: 30
@@ -79,6 +79,17 @@ ActiveRecord::Schema.define(version: 20160629092041) do
 
   add_index "movies", ["genre"], name: "index_movies_on_genre", using: :btree
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "movie_id",   limit: 4
+    t.text     "comment",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "reviews", ["movie_id"], name: "index_reviews_on_movie_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name",             limit: 50
     t.string   "last_name",              limit: 50
@@ -107,4 +118,6 @@ ActiveRecord::Schema.define(version: 20160629092041) do
 
   add_foreign_key "appearances", "actors"
   add_foreign_key "appearances", "movies"
+  add_foreign_key "reviews", "movies"
+  add_foreign_key "reviews", "users"
 end

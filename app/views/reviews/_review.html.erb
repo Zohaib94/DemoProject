@@ -1,0 +1,20 @@
+<div class="row" id="review-<%= review.id %>">
+  <div class="col-md-3">
+    <strong>Comment By:</strong>
+    <span><%= review.user.full_name %></span>
+  </div>
+  <div class="col-md-3">
+    <strong>Commented on:</strong>
+    <span><%= review.created_at.to_date %></span>
+  </div>
+  <div class="col-md-4">
+    <strong>Comment: </strong>
+    <span><%= review.comment %></span>
+  </div>
+  <div class="col-md-1">
+    <span><%= link_to 'Edit', edit_movie_review_path(@movie, review), remote: true %></span>
+  </div>
+  <div class="col-md-1">
+    <span><%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></span>
+  </div>
+</div>
