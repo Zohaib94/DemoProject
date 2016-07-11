@@ -1,6 +1,5 @@
 class Movie < ActiveRecord::Base
   paginates_per 12
-
   validates :title, :description, presence: true
   validates :title, uniqueness: true
   validates :description, length: { maximum: 255 }
@@ -10,12 +9,13 @@ class Movie < ActiveRecord::Base
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :appearances, dependent: :destroy
   has_many :actors, through: :appearances
+  has_many :reviews
 
   accepts_nested_attributes_for :attachments, allow_destroy: true , reject_if: proc { |attributes| attributes['image'].blank? }
 
-  GENRES = ['Action', 'Horror', 'Comedy', 'Thriller', 'Romance', 'Sci-Fi', 'Sports', 'Tragedy']
+  GENRES = %w(Action Horror Comedy Thriller Romance Sci-Fi Sports Tragedy Animated)
 
-  TYPES = ['latest' , 'featured']
+  TYPES = %w(latest featured)
 
   scope :latest, -> { order(release_date: :desc) }
   scope :approved, -> { where(approved: true) }
