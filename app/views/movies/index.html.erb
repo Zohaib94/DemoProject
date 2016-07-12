@@ -3,4 +3,7 @@
     <%= heading(params[:type]) %> Movies
   </h2>
   <%= render partial: 'index_movies', locals: { movies: @movies } %>
+
+<div align="center">
+  <%= paginate @movies %>
 </div>

@@ -8,6 +8,7 @@
       <div>
         <h2> All Images </h2>
         <%= render partial: 'images', locals: { attachments: @movie.attachments } %>
+        <%= render partial: 'ratings' %>
       </div>
       <% if user_signed_in? %>
         <%= link_to 'Edit', edit_movie_path(@movie), class: "btn btn-default" %>

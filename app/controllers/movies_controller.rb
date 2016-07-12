@@ -11,6 +11,13 @@ class MoviesController < ApplicationController
     @actors = Actor.all
   end
 
+  def show
+    if user_signed_in?
+      @rating = Rating.set_rating(params[:id], current_user.id)
+    end
+    @average_rating = Rating.average(params[:id])
+  end
+
   def edit
     @actors = Actor.all
     @selected = @movie.actors.pluck(:id)
