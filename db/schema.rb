@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711102149) do
+ActiveRecord::Schema.define(version: 20160712072735) do
 
   create_table "actors", force: :cascade do |t|
     t.string   "first_name", limit: 30
@@ -90,6 +90,16 @@ ActiveRecord::Schema.define(version: 20160711102149) do
   add_index "ratings", ["movie_id"], name: "index_ratings_on_movie_id", using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
+  create_table "reported_reviews", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "review_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "reported_reviews", ["review_id"], name: "index_reported_reviews_on_review_id", using: :btree
+  add_index "reported_reviews", ["user_id"], name: "index_reported_reviews_on_user_id", using: :btree
+
   create_table "reviews", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
     t.integer  "movie_id",   limit: 4
@@ -131,6 +141,8 @@ ActiveRecord::Schema.define(version: 20160711102149) do
   add_foreign_key "appearances", "movies"
   add_foreign_key "ratings", "movies"
   add_foreign_key "ratings", "users"
+  add_foreign_key "reported_reviews", "reviews"
+  add_foreign_key "reported_reviews", "users"
   add_foreign_key "reviews", "movies"
   add_foreign_key "reviews", "users"
 end
