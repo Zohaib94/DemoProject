@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160712072735) do
+ActiveRecord::Schema.define(version: 20160712081804) do
 
   create_table "actors", force: :cascade do |t|
     t.string   "first_name", limit: 30
@@ -101,11 +101,12 @@ ActiveRecord::Schema.define(version: 20160712072735) do
   add_index "reported_reviews", ["user_id"], name: "index_reported_reviews_on_user_id", using: :btree
 
   create_table "reviews", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "movie_id",   limit: 4
-    t.text     "comment",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "user_id",      limit: 4
+    t.integer  "movie_id",     limit: 4
+    t.text     "comment",      limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "report_count", limit: 4
   end
 
   add_index "reviews", ["movie_id"], name: "index_reviews_on_movie_id", using: :btree
