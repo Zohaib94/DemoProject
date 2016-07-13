@@ -9,3 +9,4 @@ ACTORS = [
 ACTORS.each do |actor|
   Actor.where(first_name: actor[0], last_name: actor[1]).first_or_create(gender: actor[2], country: actor[3], city: actor[4], birth_date: actor[5], biography: actor[6])
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
