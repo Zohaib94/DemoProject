@@ -21,6 +21,7 @@ class Movie < ActiveRecord::Base
   scope :latest, -> { order(release_date: :desc) }
   scope :approved, -> { where(approved: true) }
   scope :featured, -> { where(featured: true) }
+  scope :waiting_for_approval, -> { where(approved: false) }
 
   def return_image_path
     self.attachments.first ? self.attachments.first.image.url(:medium) : '/download.png'
@@ -34,4 +35,7 @@ class Movie < ActiveRecord::Base
     end
   end
 
+  def display_actors
+    self.actors.collect(&:name).join(',')
+  end
 end

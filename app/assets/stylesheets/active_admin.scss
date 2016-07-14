@@ -1,2 +1,10 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
+
+#index_table_movies > thead > tr > th.col.col-actors {
+  width: 100px !important;
+}
+
+#movie_27 > td.col.col-actors {
+  width: 100px !important;
+}

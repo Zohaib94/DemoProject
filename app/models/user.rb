@@ -3,15 +3,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_one :attachment, as: :attachable
-  has_many :reviews
-  has_many :ratings
-  has_one :reported_review
+  has_many :reviews, dependent: :destroy
+  has_many :ratings, dependent: :destroy
+  has_one :reported_review, dependent: :destroy
 
-  accepts_nested_attributes_for :attachment
+  accepts_nested_attributes_for :attachment, allow_destroy: true, reject_if: proc { |attributes| attributes['image'].blank? }
 
   GENDERS =  %w(Male Female)
 
-  validates :first_name, :last_name, :birth_date, presence: true
+  validates :first_name, :last_name, presence: true
   validates :gender, inclusion: { in: %w(Male Female), message: "%{value} is not valid" }
 
   def full_name

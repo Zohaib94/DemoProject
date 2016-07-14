@@ -7,6 +7,9 @@ ActiveAdmin.register Review do
     column :report_count
     actions
   end
+
   permit_params :user_id, :movie_id, :comment
+
+  config.per_page = 5
 
 end
