@@ -1,26 +1,31 @@
 <div class="container">
-  <div class="col-md-offset-1">
-    <div class="col-md-3">
-      <%= image_tag '/logo.png', class: "inline-element" %>
+  <div class="col-sm-offset-1">
+    <div class="col-sm-3">
+      <%= image_tag '/logo.png', class: "inline-element img-responsive" %>
     </div>
-    <div class="col-md-8">
+    <div class="col-sm-8">
       <h1 class="inline-element" id="heading">Movie Time</h1>
     </div>
   </div>
 </div>
 
-<div class="col-md-8 col-centered">
+<div class="col-sm-11 col-sm-offset-1 col-centered">
   <h2 class="sub-heading">Featured</h2>
-  <%= render partial: 'movies/index_movies', locals: { movies: @featured } %>
+  <%= render partial: 'movies/index_movies', locals: { movies: @featured, top: nil } %>
   <div class="div-center">
     <%= link_to 'View all', movies_path(type: 'featured'), class: 'btn btn-default' %>
   </div>
 </div>
 
-<div class="col-md-8 col-centered">
+<div class="col-sm-11 col-sm-offset-1 col-centered">
   <h2 class="sub-heading">Latest</h2>
-  <%= render partial: 'movies/index_movies', locals: { movies: @latest } %>
+  <%= render partial: 'movies/index_movies', locals: { movies: @latest, top: nil } %>
   <div class="div-center">
     <%= link_to 'View all', movies_path(type: 'latest'), class: 'btn btn-default' %>
   </div>
+</div>
+
+<div class="col-sm-11 col-sm-offset-1 col-centered">
+  <h2 class="sub-heading">Top Four</h2>
+  <%= render partial: 'movies/index_movies', locals: { movies: @top, top: '1' } %>
 </div>

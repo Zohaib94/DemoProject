@@ -4,7 +4,7 @@ class Movie < ActiveRecord::Base
   validates :title, uniqueness: true
   validates :description, length: { maximum: 255 }
   validates :trailer_url, length: { maximum: 1000 }
-  validates :duration, numericality: { greater_than: -1 }
+  validates :duration, numericality: { greater_than_or_equal_to: 0 }
 
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :appearances, dependent: :destroy
@@ -21,6 +21,7 @@ class Movie < ActiveRecord::Base
   scope :latest, -> { order(release_date: :desc) }
   scope :approved, -> { where(approved: true) }
   scope :featured, -> { where(featured: true) }
+  scope :top, -> { joins(:ratings).where('movies.approved = true').group('movie_id').order('avg(ratings.score) desc') }
   scope :waiting_for_approval, -> { where(approved: false) }
 
   def return_image_path

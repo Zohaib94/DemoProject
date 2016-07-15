@@ -4,7 +4,8 @@ class PagesController < ApplicationController
   end
 
   def home
-    @featured = Movie.featured.first(3)
-    @latest = Movie.latest.first(3)
+    @featured = Movie.featured_four
+    @latest = Movie.latest_four
+    @top = Movie.top_four
   end
 end

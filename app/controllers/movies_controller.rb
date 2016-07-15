@@ -12,6 +12,7 @@ class MoviesController < ApplicationController
   end
 
   def show
+    @reviews = @movie.reviews.page(params[:page])
     if user_signed_in?
       @rating = Rating.set_rating(params[:id], current_user.id)
     end
