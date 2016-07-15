@@ -1,24 +1,24 @@
-<div class="container">
-  <div class="row">
-    <div class="panel panel-default col-centered">
-      <div class="panel-heading">
-        <h3>Forgot your password?</h3>
+<div class='container'>
+  <div class='row'>
+    <div class='panel panel-default col-centered'>
+      <div class='panel-heading'>
+        <h1>Forgot Your Password?</h1>
       </div>
-      <div class="panel-body">
+      <div class='panel-body'>
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
           <%= devise_error_messages! %>
 
-          <div class="field form-group">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, class: "form-control" %>
+          <div class='field form-group'>
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, required: true, class: 'form-control' %>
           </div>
 
-          <div class="actions form-group">
-            <%= f.submit "Send me reset password instructions", class: "btn btn-danger form-control" %>
+          <div class='actions form-group'>
+            <%= f.submit 'Send me Reset Password Instructions', class: 'btn btn-danger form-control' %>
           </div>
         <% end %>
 
-        <%= render "users/shared/links" %>
+        <%= render 'users/shared/links' %>
       </div>
     </div>
   </div>
