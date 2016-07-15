@@ -56,9 +56,7 @@
       <div id='reviews'>
         <%= render @reviews %>
       </div>
-      <div id='pagination'>
-        <%= paginate @reviews %>
-      </div>
+
       <div id='review-form' class='hide-element'></div>
         <% if user_signed_in? %>
           <%= link_to 'Add Review', new_movie_review_path(@movie), remote: true %>

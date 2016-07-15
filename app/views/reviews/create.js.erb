@@ -1,2 +1,2 @@
-$('#reviews').append("<%= j (render partial: 'review', locals: { review: @review }) %>");
+$('#reviews').prepend("<%= j (render partial: 'review', locals: { review: @review }) %>");
 $('#review-form').slideUp(350);
