@@ -1,0 +1,17 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-4'>
+      <%= render partial: 'profile_picture', locals: { attachment: @user.attachment } %>
+      <hr/>
+      <strong>Email: </strong><%= display_value(@user.email) %>
+      <hr/>
+      <strong>Gender: </strong><%= display_value(@user.gender) %>
+      <hr/>
+      <strong>Birth Date: </strong><%= display_value(date_display(@user.birth_date)) %>
+      <hr/>
+    </div>
+    <div class='col-md-8'>
+      <h1><%= @user.full_name %></h1>
+    </div>
+  </div>
+</div>
