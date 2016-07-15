@@ -4,6 +4,8 @@ class Rating < ActiveRecord::Base
 
   validates :score, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
 
+  scope :average_by_score, -> (movie_id) { where(movie_id: movie_id).average('score') }
+
   def self.set_rating(movie_id, user_id)
     rating = Rating.where(movie_id: movie_id, user_id: user_id)
     unless rating.count == 0

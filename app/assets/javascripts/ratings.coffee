@@ -1,4 +1,4 @@
-$(document).ready ->
+$(document).on 'ready page:load', ->
   $('.average-stars').raty
     path: '/assets/'
     score: ->

@@ -1,58 +1,69 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="round-borders">
+<div class='container'>
+  <div class='row'>
+    <div class='col-sm-4'>
+      <div class='round-borders'>
         <%= render partial: 'image', locals: { attachment: @movie.attachments.first } %>
       </div>
       <hr/>
       <div>
-        <h2> All Images </h2>
+        <h2>Posters</h2>
         <%= render partial: 'images', locals: { attachments: @movie.attachments } %>
         <%= render partial: 'ratings' %>
       </div>
       <% if user_signed_in? %>
-        <%= link_to 'Edit', edit_movie_path(@movie), class: "btn btn-default" %>
+        <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-default' %>
         <%= link_to 'Delete', @movie, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
       <% end %>
-      <%= link_to 'Back', movies_path, class: "btn btn-default" %>
+      <%= link_to 'Back', movies_path, class: 'btn btn-default' %>
     </div>
 
-    <div class="col-md-8">
+    <div class='col-sm-8'>
+      <h1 id='movie-heading'><%= @movie.title %></h1>
+
+      <div class='video-wrapper'>
+        <h3>Trailer</h3>
+        <%= display_value raw(@movie.trailer_url) %>
+      </div>
+
       <div class='row'>
-        <div class="col-md-2">
-          <div><strong>Title</strong></div>
-          <div><strong>Release Date</strong></div>
-          <div><strong>Genre</strong></div>
-          <div><strong>Duration</strong></div>
-          <div><strong>Description</strong></div>
+        <div class='col-sm-4'>
+          <h3>Release Date</h3>
+          <%= display_value(date_display(@movie.release_date)) %>
         </div>
-        <div class="col-md-4">
-          <div><%= @movie.title %></div>
-          <div><%= @movie.release_date %></div>
-          <div><%= @movie.genre %></div>
-          <div><%= @movie.duration %> minutes</div>
-          <div><%= raw(@movie.description) %></div>
+
+        <div class='col-sm-2'>
+          <h3>Genre</h3>
+          <%= display_value @movie.genre %>
         </div>
-        <div class="col-md-2">
-          <div>
-            <strong>Actors</strong>
-          </div>
-          <div>
-            <%= render partial: 'actors', locals: { actors: @movie.actors } %>
-          </div>
+
+        <div class='col-sm-2'>
+          <h3>Duration</h3>
+          <%= display_value @movie.duration %> minutes
+        </div>
+
+        <div class='col-sm-4'>
+          <h3>Actors</h3>
+          <%= display_value @movie.display_actors %>
         </div>
       </div>
-      <div id="trailer" class='row'>
-        <%= raw(@movie.trailer_url) %>
+
+      <div id='movie-description'>
+        <h2>Summary</h2>
+        <%= display_value raw(@movie.description) %>
       </div>
+
+      <h2>Reviews</h2>
+      <div id='reviews'>
+        <%= render @reviews %>
+      </div>
+      <div id='pagination'>
+        <%= paginate @reviews %>
+      </div>
+      <div id='review-form' class='hide-element'></div>
+        <% if user_signed_in? %>
+          <%= link_to 'Add Review', new_movie_review_path(@movie), remote: true %>
+        <% end %>
     </div>
+
   </div>
-  <div id="reviews">
-    <h3>Reviews</h3>
-    <%= render @movie.reviews %>
-  </div>
-  <div id='review-form' class="hide-element"></div>
-  <% if user_signed_in? %>
-    <%= link_to 'Add Review', new_movie_review_path(@movie), remote: true %>
-  <% end %>
 </div>

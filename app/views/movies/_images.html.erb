@@ -1,8 +1,8 @@
 <% attachments.in_groups_of(3, false).each do |attachment_group| %>
-  <div class="row">
+  <div class='row'>
     <% attachment_group.each do |attachment| %>
-      <div class="col-md-4">
-        <%= image_tag(attachment.image.url(:thumb), class: "img-responsive" , size: "100x100") %>
+      <div class='col-md-4'>
+        <%= image_tag(attachment.image.url(:thumb), class: 'poster_show img-responsive') %>
       </div>
     <% end %>
   </div>

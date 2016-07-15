@@ -1,5 +1,5 @@
 <% if attachment %>
-  <%= image_tag attachment.image.url(:medium), class: "round-borders", size: "300x300" %>
+  <%= image_tag attachment.image.url(:medium), class: 'round-borders img-responsive' %>
 <% else %>
-  <%= image_tag "/download.png", size: "300x300", class: "round-borders" %>
+  <%= image_tag '/download.png', class: 'round-borders' %>
 <% end %>
