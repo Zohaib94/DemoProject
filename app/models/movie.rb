@@ -9,8 +9,9 @@ class Movie < ActiveRecord::Base
   has_many :attachments, as: :attachable, dependent: :destroy
   has_many :appearances, dependent: :destroy
   has_many :actors, through: :appearances
-  has_many :reviews
-  has_many :ratings
+  has_many :reviews, dependent: :destroy
+  has_many :ratings, dependent: :destroy
+  has_many :favorite_movies, dependent: :destroy
 
   accepts_nested_attributes_for :attachments, allow_destroy: true , reject_if: proc { |attributes| attributes['image'].blank? }
 
@@ -20,7 +21,7 @@ class Movie < ActiveRecord::Base
 
   scope :latest, -> { order(release_date: :desc) }
   scope :approved, -> { where(approved: true) }
-  scope :featured, -> { where(featured: true) }
+  scope :featured, -> { where(featured: true).order(updated_at: :desc) }
   scope :top, -> { joins(:ratings).where('movies.approved = true').group('movie_id').order('avg(ratings.score) desc') }
   scope :waiting_for_approval, -> { where(approved: false) }
 
@@ -32,11 +33,15 @@ class Movie < ActiveRecord::Base
     if type_param.in? TYPES
       type_param == "latest" ? self.approved.latest : self.approved.featured
     else
-      self.all
+      self.approved.all
     end
   end
 
   def display_actors
     self.actors.collect(&:name).join(',')
+  end
+
+  def has_favorite?(user)
+    self.favorite_movies.where(user: user).present?
   end
 end

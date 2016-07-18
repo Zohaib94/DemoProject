@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     resources :reported_reviews, only: [:create, :destroy]
   end
 
+  resources :movies, only: [] do
+    resources :favorite_movies, only: [:create]
+  end
+
   devise_for :users
   resources :users, only: [:show]
   # The priority is based upon order of creation: first created -> highest priority.

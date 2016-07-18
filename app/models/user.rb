@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :ratings, dependent: :destroy
   has_many :reported_reviews, dependent: :destroy
+  has_many :favorite_movies, dependent: :destroy
 
   accepts_nested_attributes_for :attachment, allow_destroy: true, reject_if: proc { |attributes| attributes['image'].blank? }
 
@@ -24,6 +25,11 @@ class User < ActiveRecord::Base
 
   def has_reported?(review)
     self.reported_reviews.where(review: review).present?
+  end
+
+  def get_favorite_movies
+    movie_ids = self.favorite_movies.pluck(:movie_id)
+    Movie.where(id: movie_ids)
   end
 
 end
