@@ -1,2 +1,11 @@
-$('div#' + "review-<%= @review.id %>").replaceWith("<%= j (render partial: 'review', locals: { review: @review }) %>");
-$('#review-form').slideUp(350);
+<% if @review.valid? %>
+  $('div#' + "review-<%= @review.id %>").replaceWith("<%= j (render partial: 'review', locals: { review: @review }) %>");
+  $('#review-errors').html('');
+  $('#review-form').slideUp(350);
+<% else %>
+  <% if @review.errors.any? %>
+    <% @review.errors.full_messages.each do |message| %>
+      $('#review-errors').html("<%= message %>");
+    <% end %>
+  <% end %>
+<% end %>
