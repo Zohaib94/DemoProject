@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_one :attachment, as: :attachable
   has_many :reviews, dependent: :destroy
   has_many :ratings, dependent: :destroy
-  has_one :reported_review, dependent: :destroy
+  has_many :reported_reviews, dependent: :destroy
 
   accepts_nested_attributes_for :attachment, allow_destroy: true, reject_if: proc { |attributes| attributes['image'].blank? }
 
@@ -21,4 +21,9 @@ class User < ActiveRecord::Base
   def profile_picture_path(style_parameter)
     self.attachment ? self.attachment.image.url(style_parameter) : '/assets/medium/missing.png'
   end
+
+  def has_reported?(review)
+    self.reported_reviews.where(review: review).present?
+  end
+
 end

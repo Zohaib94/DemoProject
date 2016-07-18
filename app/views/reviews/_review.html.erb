@@ -1,31 +1,37 @@
-<div class="row" id="review-<%= review.id %>">
-  <div class="col-md-3">
+<div class='row' id="review-<%= review.id %>">
+  <div class='col-md-3'>
     <strong>Comment By:</strong>
     <span><%= review.user.full_name %></span>
   </div>
-  <div class="col-md-3">
+  <div class='col-md-3'>
     <strong>Commented on:</strong>
     <span><%= review.created_at.to_date %></span>
   </div>
-  <div class="col-md-4">
+  <div class='col-md-4'>
     <strong>Comment: </strong>
     <span><%= review.comment %></span>
   </div>
   <% if user_signed_in? %>
     <% if is_review_owner?(review, current_user) %>
-      <div class="col-md-1">
+      <div class='col-md-1'>
         <span><%= link_to 'Edit', edit_movie_review_path(@movie, review), remote: true %></span>
       </div>
-      <div class="col-md-1">
+      <div class='col-md-1'>
         <span><%= link_to 'Destroy', [@movie, review], method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></span>
       </div>
     <% end %>
     <% unless is_review_owner?(review, current_user) %>
-      <div class="col-md-2">
-        <%= form_for([review, review.reported_reviews.build], remote: true) do |f| %>
-          <%= f.submit 'Report', class: "btn btn-danger form-control" %>
-        <% end %>
-      </div>
+      <% unless current_user.has_reported?(review) %>
+        <div class='col-md-2' id='report-div'>
+          <%= form_for([review, review.reported_reviews.build], remote: true) do |f| %>
+            <%= f.submit 'Report', class: 'btn btn-danger form-control' %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class='col-md-2' id='report-div'>
+          <span> Already Reported </span>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>
