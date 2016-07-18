@@ -7,4 +7,10 @@ class Review < ActiveRecord::Base
   def has_reported?(user)
     self.reported_reviews.where(user: user).count > 0
   end
+
+  def reporters
+    reporter_ids = self.reported_reviews.pluck(:user_id)
+    User.where(id: reporter_ids).collect(&:full_name).join(',')
+  end
+
 end
