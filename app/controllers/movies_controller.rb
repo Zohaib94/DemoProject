@@ -1,6 +1,7 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :get_latest_reviews, only: [:show]
 
   def index
     @movies = Movie.get_movies(params[:type]).page(params[:page])
@@ -12,7 +13,6 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @reviews = @movie.reviews
     if user_signed_in?
       @rating = Rating.set_rating(params[:id], current_user.id)
     end
@@ -71,4 +71,13 @@ class MoviesController < ApplicationController
     def movie_params
       params.require(:movie).permit(:title, :release_date, :genre, :duration, :description, :trailer_url, :featured, :approved, attachments_attributes: [:id, :image, :_destroy], actor_ids: [])
     end
+
+    def get_latest_reviews
+      if @movie.approved?
+        @reviews = @movie.reviews.latest
+      else
+        redirect_to root_path, notice: 'Movie can not be viewed before admin approval'
+      end
+    end
+
 end

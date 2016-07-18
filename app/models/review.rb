@@ -5,6 +5,7 @@ class Review < ActiveRecord::Base
   has_many :reported_reviews, dependent: :destroy
 
   validates :comment, presence: true, length: { maximum: 50 }
+  scope :latest, -> { order(created_at: :desc) }
 
   def has_reported?(user)
     self.reported_reviews.where(user: user).count > 0
