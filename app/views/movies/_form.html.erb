@@ -45,10 +45,11 @@
             <div>
               <%= f.fields_for :attachments do |attachment_form| %>
                 <div class='row'>
-                  <% unless attachment_form.object.image.url(:thumb) == '/missing.png' %>
-                    <div class='col-md-6'><%= image_tag attachment_form.object.image.url(:thumb) %></div>
-                  <% else %>
+                  <% if attachment_form.object.new_record? %>
                     <div class='col-md-6'><%= attachment_form.file_field :image, class: 'margin' %></div>
+                  <% else %>
+                    <div class='col-md-3'><%= image_tag attachment_form.object.image.url(:thumb) %></div>
+                    <div class='col-md-3'><%= attachment_form.file_field :image, class: 'margin' %></div>
                   <% end %>
                   <div class='col-md-6'><%= attachment_form.link_to_remove '', class: 'btn btn-danger margin glyphicon glyphicon-remove' %></div>
                 </div>
