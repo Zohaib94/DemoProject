@@ -9,29 +9,43 @@
   </div>
 </div>
 
-<% if @featured %>
-  <div class='col-sm-11 col-sm-offset-1 col-centered'>
-    <h2 class='sub-heading'>Featured</h2>
-    <%= render partial: 'movies/index_movies', locals: { movies: @featured, top: nil } %>
-    <div class='div-center'>
-      <%= link_to 'View all', movies_path(type: 'featured'), class: 'btn btn-default' %>
+<% if sections_exist?(@featured_movies, @latest_movies, @top_movies) %>
+  <% if @featured_movies.present? %>
+    <div class='col-sm-11 col-sm-offset-1 col-centered'>
+      <h2 class='sub-heading'>Featured</h2>
+      <%= render partial: 'movies/index_movies', locals: { movies: @featured_movies, top: nil } %>
+      <div class='div-center'>
+        <%= link_to 'View all', movies_path(type: 'featured'), class: 'btn btn-default' %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 
-<% if @latest %>
-  <div class='col-sm-11 col-sm-offset-1 col-centered'>
-    <h2 class='sub-heading'>Latest</h2>
-    <%= render partial: 'movies/index_movies', locals: { movies: @latest, top: nil } %>
-    <div class='div-center'>
-      <%= link_to 'View all', movies_path(type: 'latest'), class: 'btn btn-default' %>
+  <% if @latest_movies.present? %>
+    <div class='col-sm-11 col-sm-offset-1 col-centered'>
+      <h2 class='sub-heading'>Latest</h2>
+      <%= render partial: 'movies/index_movies', locals: { movies: @latest_movies, top: nil } %>
+      <div class='div-center'>
+        <%= link_to 'View all', movies_path(type: 'latest'), class: 'btn btn-default' %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 
-<% if @top %>
-  <div class='col-sm-11 col-sm-offset-1 col-centered'>
-    <h2 class='sub-heading'>Top Four</h2>
-    <%= render partial: 'movies/index_movies', locals: { movies: @top, top: '1' } %>
+  <% if @top_movies.present? %>
+    <div class='col-sm-11 col-sm-offset-1 col-centered'>
+      <h2 class='sub-heading'>Top Four</h2>
+      <%= render partial: 'movies/index_movies', locals: { movies: @top_movies, top: '1' } %>
+    </div>
+  <% end %>
+<% else %>
+  <div class='random-text'>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam condimentum tortor euismod imperdiet consectetur. Class aptent taciti sociosqu ad
+      litora torquent per conubia nostra, per inceptos himenaeos. Duis odio purus, scelerisque id congue eu, pharetra at velit. Maecenas vitae magna
+      sagittis, eleifend erat eget, semper magna. Praesent consequat lacinia eros eu facilisis. Aliquam cursus ultrices eros nec mattis. Donec
+      turpis cursus lorem euismod rutrum. Proin accumsan lectus quis purus volutpat, vitae sagittis ex dapibus. Donec luctus consectetur nisi n
+      varius. Donec metus elit, vehicula a interdum a, commodo non mi. Nullam placerat efficitur porttitor. Aenean consequat, elit vel congue
+      gravida, ligula dui tincidunt ex, ut consequat odio erat vel velit. Sed sagittis elementum quam eget viverra. Integer sit amet finibus libero.
+      Morbi ultrices velit nec nunc interdum, quis dapibus turpis pharetra. Quisque in fermentum libero.
+    </p>
   </div>
 <% end %>
