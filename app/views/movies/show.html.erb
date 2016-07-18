@@ -10,6 +10,7 @@
         <%= render partial: 'images', locals: { attachments: @movie.attachments } %>
         <%= render partial: 'ratings' %>
       </div>
+
       <% if user_signed_in? %>
         <%= link_to 'Edit', edit_movie_path(@movie), class: 'btn btn-default' %>
         <%= link_to 'Delete', @movie, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
@@ -22,7 +23,7 @@
 
       <div class='video-wrapper'>
         <h3>Trailer</h3>
-        <%= display_value raw(@movie.trailer_url) %>
+        <%= display_value raw(escape_script_tags(@movie.trailer_url)) %>
       </div>
 
       <div class='row'>
