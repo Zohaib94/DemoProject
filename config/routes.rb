@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'pages/home', to: 'pages#home'
 
   resources :movies do
+    post :result, on: :collection
     resources :reviews
     resources :ratings
   end

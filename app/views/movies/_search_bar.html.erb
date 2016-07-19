@@ -1,0 +1,31 @@
+<div class='row' id='search-bar'>
+
+  <div class='div-center'>
+    <h1>Search</h1>
+  </div>
+
+  <%= form_tag(result_movies_path, method: :post, remote: true) do %>
+    <div class='col-md-3'>
+      <%= label_tag(:title) %>
+      <%= text_field_tag(:title, nil, class: 'form-control') %>
+    </div>
+    <div class='col-md-3'>
+      <%= label_tag(:actor_name, 'Actor Name') %>
+      <%= text_field_tag(:actor_name, nil, class: 'form-control') %>
+    </div>
+    <div class='col-md-3'>
+      <%= label_tag(:genre) %>
+      <%= select_tag :genre, options_for_select(Movie::GENRES), class: 'form-control', prompt: 'Select a Genre' %>
+    </div>
+    <div class='col-md-3'>
+      <%= label_tag(:release_date, 'Release Time (Enter Day, Month or Year)') %>
+      <%= text_field_tag(:release_date, nil, class: 'form-control', maxlength: 4, minlength: 4, type: 'number') %>
+    </div>
+    <div class='div-center'>
+      <div class='clearfix'>
+        <%= submit_tag('Search', class: 'btn btn-success margin') %>
+      </div>
+    </div>
+  <% end %>
+
+</div>

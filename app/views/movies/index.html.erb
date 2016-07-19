@@ -1,9 +1,20 @@
 <div class="col-md-8 col-centered">
-  <h1 class="sub-heading">
-    <%= heading(params[:type]) %> Movies
-  </h1>
-  <%= render partial: 'index_movies', locals: { movies: @movies, top: nil } %>
+  <%= render partial: 'search_bar' %>
 
-<div align="center">
-  <%= paginate @movies %>
+  <% if index_action?(params[:action]) %>
+    <div id='index-display'>
+      <h1 class="sub-heading">
+        <%= heading(params[:type]) %> Movies
+      </h1>
+
+      <%= render partial: 'index_movies', locals: { movies: @movies, top: nil } %>
+
+      <div align="center">
+        <%= paginate @movies %>
+      </div>
+    </div>
+  <% else %>
+    <div id='index-display'></div>
+  <% end %>
+
 </div>

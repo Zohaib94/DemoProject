@@ -1,5 +1,7 @@
 class Movie < ActiveRecord::Base
+
   paginates_per 12
+
   validates :title, :description, presence: true
   validates :title, uniqueness: true
   validates :description, length: { maximum: 255 }
@@ -25,6 +27,7 @@ class Movie < ActiveRecord::Base
   scope :top, -> { joins(:ratings).where('movies.approved = true').group('movie_id').order('avg(ratings.score) desc') }
   scope :waiting_for_approval, -> { where(approved: false) }
 
+
   def return_image_path
     self.attachments.first ? self.attachments.first.image.url(:medium) : '/download.png'
   end
@@ -44,4 +47,20 @@ class Movie < ActiveRecord::Base
   def has_favorite?(user)
     self.favorite_movies.where(user: user).present?
   end
+
+  def self.search_movies(parameters)
+
+    default_conditions = {
+      title: parameters[:title],
+      genre: parameters[:genre],
+      actor_name: parameters[:actor_name],
+      release_date: parameters[:release_date]
+    }
+    default_filter = { approved: true }
+    default_order = 'updated_at DESC'
+
+    Movie.search(conditions: default_conditions, with: default_filter, order: default_order)
+
+  end
+
 end
