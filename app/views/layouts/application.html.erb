@@ -7,17 +7,17 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div id="wrapper">
-      <div id="header">
+    <div id='wrapper'>
+      <div id='header'>
         <%= render 'shared/header' %>
       </div>
-      <div id="content">
-          <div class="col-md-8 col-md-offset-2 col-centered">
+      <div id='content'>
+          <div class='col-md-6 col-centered'>
             <%= render partial: 'shared/alerts' %>
           </div>
           <%= yield %>
       </div>
-      <div id="footer">
+      <div id='footer'>
         <%= render 'shared/footer' %>
       </div>
     </div>

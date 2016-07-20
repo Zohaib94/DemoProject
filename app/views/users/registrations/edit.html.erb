@@ -7,14 +7,23 @@
       <div class='panel-body'>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
           <%= devise_error_messages! %>
-          <div class='field form-group'>
-            <%= f.label :first_name, 'First Name' %>
-            <%= f.text_field :first_name, autocomplete: 'off', class: 'form-control' %>
+
+          <div class='row'>
+            <div class='col-md-6'>
+              <div class='field form-group'>
+                <%= f.label :first_name, 'First Name' %>
+                <%= f.text_field :first_name, autocomplete: 'off', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='col-md-6'>
+              <div class='field form-group'>
+                <%= f.label :last_name, 'Last Name' %>
+                <%= f.text_field :last_name, autocomplete: 'off', class: 'form-control' %>
+              </div>
+            </div>
           </div>
-          <div class='field form-group'>
-            <%= f.label :last_name, 'Last Name' %>
-            <%= f.text_field :last_name, autocomplete: 'off', class: 'form-control' %>
-          </div>
+
           <div class='field form-group'>
             <%= f.label :email %>
             <%= f.email_field :email, autofocus: true, class: 'form-control' %>
@@ -34,14 +43,23 @@
             <%= f.label :current_password, 'Current Password' %> <i>(we need your current password to confirm your changes)</i>
             <%= f.password_field :current_password, autocomplete: 'off', required: true, class: 'form-control' %>
           </div>
-          <div class='field form-group dropdown'>
-            <%= f.label :birth_date, 'Birth Date' %>
-            <%= f.date_field :birth_date, class: 'form-control' %>
+
+          <div class='row'>
+            <div class='col-md-6'>
+              <div class='field form-group dropdown'>
+                <%= f.label :birth_date, 'Date of Birth' %>
+                <%= f.date_field :birth_date, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='col-md-6'>
+              <div class='field form-group'>
+                <%= f.label :gender %>
+                <%= f.select :gender, options_for_select(User::GENDERS), { prompt: 'Please Select' }, { class: 'dropdown-toggle form-control' } %>
+              </div>
+            </div>
           </div>
-          <div class='field form-group'>
-            <%= f.label :gender %>
-            <%= f.select :gender, options_for_select(User::GENDERS), { prompt: 'Please Select' }, { class: 'dropdown-toggle form-control' } %>
-          </div>
+
           <div class='field form-group'>
             <div>
               <%= image_tag resource.profile_picture_path(:thumb) %>

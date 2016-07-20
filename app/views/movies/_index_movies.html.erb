@@ -1,13 +1,13 @@
 <% movies.in_groups_of(4, false).each do |movie_group| %>
-  <div class="row">
+  <div class='row'>
     <% movie_group.each do |movie| %>
-      <div class="col-md-3 large-font">
-        <%= link_to image_tag(movie.return_image_path , size: "300x300", class: "img-responsive"), movie %>
-        <div class="bold large-font initial-align">
+      <div class='col-sm-3 large-font'>
+        <%= link_to image_tag(movie.return_image_path , size: '300x300', class: 'img-responsive'), movie %>
+        <div class='bold large-font initial-align'>
           <%= movie.title %>
         </div>
         <% if top %>
-          <div class="small-text">
+          <div class='small-text'>
             <i>Average Rating: <%= Rating.average(movie.id) %></i>
           </div>
         <% end %>
