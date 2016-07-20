@@ -5,25 +5,31 @@
   </div>
 
   <%= form_tag(result_movies_path, method: :post, remote: true) do %>
-    <div class='col-md-3'>
-      <%= label_tag(:title) %>
-      <%= text_field_tag(:title, nil, class: 'form-control') %>
-    </div>
-    <div class='col-md-3'>
-      <%= label_tag(:actor_name, 'Actor Name') %>
-      <%= text_field_tag(:actor_name, nil, class: 'form-control') %>
-    </div>
-    <div class='col-md-3'>
-      <%= label_tag(:genre) %>
-      <%= select_tag :genre, options_for_select(Movie::GENRES), class: 'form-control', prompt: 'Select a Genre' %>
-    </div>
-    <div class='col-md-3'>
-      <%= label_tag(:release_date, 'Release Time (Enter Day, Month or Year)') %>
-      <%= text_field_tag(:release_date, nil, class: 'form-control', maxlength: 4, minlength: 4, type: 'number') %>
-    </div>
-    <div class='div-center'>
-      <div class='clearfix'>
-        <%= submit_tag('Search', class: 'btn btn-success margin') %>
+    <div class='row'>
+      <div class='col-md-3'>
+        <%= label_tag(:title) %>
+        <%= text_field_tag(:title, nil, class: 'form-control') %>
+      </div>
+      <div class='col-md-3'>
+        <%= label_tag(:actor_name, 'Actor Name') %>
+        <%= text_field_tag(:actor_name, nil, class: 'form-control') %>
+      </div>
+      <div class='col-md-2'>
+        <%= label_tag(:genre) %>
+        <%= select_tag :genre, options_for_select(Movie::GENRES), class: 'form-control', prompt: 'Select a Genre' %>
+      </div>
+      <div class='col-md-2'>
+        <%= label_tag(:start_date, 'Start Date') %>
+        <%= date_field_tag :start_date, params[:start_date], class: 'form-control', placeholder: 'Search By Start Date' %>
+      </div>
+      <div class='col-md-2'>
+        <%= label_tag(:end_date, 'Ending Date') %>
+        <%= date_field_tag :end_date, params[:end_date], class: 'form-control', placeholder: 'Search By End Date' %>
+      </div>
+      <div class='row'>
+        <div class='col-md-12 div-center'>
+           <%= submit_tag('Search', class: 'btn btn-success margin') %>
+        </div>
       </div>
     </div>
   <% end %>
