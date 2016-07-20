@@ -66,4 +66,24 @@ class Movie < ActiveRecord::Base
     search_filter = { approved: true }
     Movie.search(parameters[:search], with: search_filter, order: DEFAULT_SEARCH_ORDER)
   end
+
+  def movie_hash
+    {
+      movie_details: self,
+      actors: self.actors.pluck(:id, :first_name, :last_name, :gender),
+      reviews: self.reviews.pluck(:id, :comment)
+    }
+  end
+
+  def self.movies_list(params)
+    movies = self.search_movies(params)
+    movies_array = Array.new
+    movies.each do |movie|
+      movies_array.push({
+        movie_details: movie,
+        actors: movie.actors.pluck(:id, :first_name, :last_name)
+      })
+    end
+    Kaminari.paginate_array(movies_array)
+  end
 end
