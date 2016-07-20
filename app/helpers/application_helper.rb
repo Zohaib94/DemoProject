@@ -16,7 +16,7 @@ module ApplicationHelper
     }[flash_type.to_sym] || flash_type.to_s
   end
 
-  def heading(type)
+  def display_heading(type)
     if type && type.in?(Movie::TYPES)
       type.capitalize
     end

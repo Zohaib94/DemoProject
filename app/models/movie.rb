@@ -1,5 +1,8 @@
 class Movie < ActiveRecord::Base
 
+  DEFAULT_SEARCH_FILTER = { approved: true }
+  DEFAULT_SEARCH_ORDER = 'updated_at DESC'
+
   paginates_per 12
 
   validates :title, :description, presence: true
@@ -49,18 +52,17 @@ class Movie < ActiveRecord::Base
   end
 
   def self.search_movies(parameters)
+    default_conditions = {}
+    default_conditions[:title] = parameters[:title] if parameters[:title].present?
+    default_conditions[:genre] = parameters[:genre] if parameters[:genre].present?
+    default_conditions[:actor_name] = parameters[:actor_name] if parameters[:actor_name].present?
+    default_conditions[:release_date] = parameters[:release_date] if parameters[:release_date].present?
 
-    default_conditions = {
-      title: parameters[:title],
-      genre: parameters[:genre],
-      actor_name: parameters[:actor_name],
-      release_date: parameters[:release_date]
-    }
-    default_filter = { approved: true }
-    default_order = 'updated_at DESC'
+    Movie.search(conditions: default_conditions, with: DEFAULT_SEARCH_FILTER, order: DEFAULT_SEARCH_ORDER)
+  end
 
-    Movie.search(conditions: default_conditions, with: default_filter, order: default_order)
-
+  def self.basic_search(parameters)
+    Movie.search(parameters[:search], with: DEFAULT_SEARCH_FILTER, order: DEFAULT_SEARCH_ORDER)
   end
 
 end

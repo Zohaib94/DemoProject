@@ -1,16 +1,14 @@
 <div id="navbar">
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role='navigation'>
     <div class="container-fluid">
       <div class="navbar-header">
         <%= link_to 'Movie Time', root_path, class: 'navbar-brand' %>
       </div>
-      <ul class="nav navbar-nav">
-        <li><%= link_to 'About Us' %>
-      </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><%= render partial: 'layouts/search' %></li>
         <% if user_signed_in? %>
           <li><%= link_to current_user.full_name, user_path(current_user) %></li>
-          <li><%= link_to 'New Movie', new_movie_path %></li>
+          <li><%= link_to 'New Movie', new_movie_path, class: 'btn btn-default' %></li>
           <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
           <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
         <% else %>
