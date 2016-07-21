@@ -57,7 +57,7 @@ class Movie < ActiveRecord::Base
     default_conditions[:actor_name] = parameters[:actor_name] if parameters[:actor_name].present?
 
     search_filter = { approved: true }
-    search_filter[:release_date] = (Date.parse(parameters[:start_date])..Date.parse(parameters[:end_date])) if (parameters[:start_date] && parameters[:end_date]).present?
+    search_filter[:release_date] = date_range(parameters[:start_date], parameters[:end_date]) if parameters[:start_date].present?
 
     Movie.search(conditions: default_conditions, with: search_filter, order: DEFAULT_SEARCH_ORDER)
   end
@@ -86,4 +86,21 @@ class Movie < ActiveRecord::Base
     end
     Kaminari.paginate_array(movies_array)
   end
+
+  def self.date_range(start_date, end_date)
+    if start_date.present? && end_date.present?
+     validate_date(start_date)..validate_date(end_date)
+    elsif start_date.present?
+     validate_date(start_date)..Date.today
+    end
+  end
+
+  def self.validate_date(date)
+    begin
+      Date.parse(date)
+    rescue
+      Date.today
+    end
+  end
+
 end
