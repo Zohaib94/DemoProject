@@ -1,5 +1,3 @@
 <% if @reported_review %>
-  alert('Review has been successfully reported');
-<% else %>
-  alert('You have already reported this review');
+  $("#review-<%= @reported_review.review_id %> #report-div").html('<span>Reported Successfully!</span>');
 <% end %>
