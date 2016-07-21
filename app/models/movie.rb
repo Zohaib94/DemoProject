@@ -75,18 +75,6 @@ class Movie < ActiveRecord::Base
     }
   end
 
-  def self.movies_list(params)
-    movies = self.search_movies(params)
-    movies_array = Array.new
-    movies.each do |movie|
-      movies_array.push({
-        movie_details: movie,
-        actors: movie.actors.pluck(:id, :first_name, :last_name)
-      })
-    end
-    Kaminari.paginate_array(movies_array)
-  end
-
   def self.date_range(start_date, end_date)
     if start_date.present? && end_date.present?
      validate_date(start_date)..validate_date(end_date)
