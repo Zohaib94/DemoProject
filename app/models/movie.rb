@@ -30,8 +30,8 @@ class Movie < ActiveRecord::Base
   scope :waiting_for_approval, -> { where(approved: false) }
 
 
-  def return_image_path
-    self.attachments.first ? self.attachments.first.image.url(:medium) : '/download.png'
+  def image_path
+    attachments.first ? attachments.first.image.url(:medium) : 'medium/missing.png'
   end
 
   def self.get_movies(type_param)

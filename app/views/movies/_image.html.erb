@@ -1,5 +1,5 @@
 <% if attachment %>
   <%= image_tag attachment.image.url(:medium), class: 'round-borders img-responsive' %>
 <% else %>
-  <%= image_tag '/download.png', class: 'round-borders' %>
+  <%= image_tag 'medium/missing.png', alt: 'Profile Picture Unavailable', class: 'img-responsive' %>
 <% end %>

@@ -2,7 +2,7 @@
   <div class='row'>
     <% movie_group.each do |movie| %>
       <div class='col-sm-3 large-font'>
-        <%= link_to image_tag(movie.return_image_path , size: '300x300', class: 'img-responsive'), movie %>
+        <%= link_to image_tag(movie.image_path , size: '300x300', class: 'img-responsive'), movie %>
         <div class='bold large-font initial-align'>
           <%= movie.title %>
         </div>
