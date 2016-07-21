@@ -18,11 +18,11 @@
           <% end %>
           <div class='field form-group'>
             <%= f.label :title %>
-            <%= f.text_field :title, required: true, class: 'form-control' %>
+            <%= f.text_field :title, maxlength: 50, required: true, class: 'form-control' %>
           </div>
           <div class='field form-group'>
             <%= f.label :release_date, 'Released At' %>
-            <%= f.date_field :release_date, required: true, class: 'form-control' %>
+            <%= f.date_field :release_date, maxlength: 50, required: true, class: 'form-control' %>
           </div>
           <div class='field form-group'>
             <%= f.label :genre %>
@@ -30,7 +30,7 @@
           </div>
           <div class='field form-group'>
             <%= f.label :duration %><i>(in minutes)</i>
-            <%= f.number_field :duration, class: 'form-control' %>
+            <%= f.number_field :duration, maxlength: 3, class: 'form-control' %>
           </div>
           <div class='field form-group'>
             <%= f.label :description, 'Summary' %>
@@ -38,7 +38,7 @@
           </div>
           <div class='field form-group'>
             <%= f.label :trailer_url, 'Trailer Embed Code' %>
-            <%= f.text_area :trailer_url, class: 'form-control' %>
+            <%= f.text_area :trailer_url, maxlength: 1000, class: 'form-control' %>
           </div>
           <div class='field form-group'>
             <%= f.label :posters, 'Movie Posters' %>
