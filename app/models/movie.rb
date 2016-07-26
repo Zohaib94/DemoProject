@@ -3,7 +3,7 @@ class Movie < ActiveRecord::Base
   DEFAULT_SEARCH_ORDER = 'updated_at DESC'
   DEFAULT_SEARCH_FILTER = { approved: true }
   GENRES = %w(Action Horror Comedy Thriller Romance Sci-Fi Sports Tragedy Animated)
-  TYPES = %w(latest featured)
+  MOVIE_TYPES = %w(latest featured)
   RESULTS_PER_PAGE = 8
 
   paginates_per RESULTS_PER_PAGE
@@ -36,7 +36,7 @@ class Movie < ActiveRecord::Base
   end
 
   def self.get_movies(type_param)
-    if type_param.in? TYPES
+    if type_param.in? MOVIE_TYPES
       type_param == "latest" ? self.approved.latest : self.approved.featured
     else
       self.approved.all
