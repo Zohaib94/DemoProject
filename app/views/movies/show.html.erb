@@ -15,11 +15,11 @@
 
         <% if user_signed_in? %>
           <% unless current_user.has_already_favorite?(@movie) %>
-            <%= form_for([@movie, @movie.favorite_movies.new], remote: true) do |f| %>
+            <%= form_for(@movie, url: add_to_favorites_movie_path(@movie), remote: true) do |f| %>
               <%= f.submit 'Add to Favorites', class: 'btn btn-default form-control' %>
             <% end %>
-            <% else %>
-              <span>Already a favorite!</span>
+          <% else %>
+            <span>Already a favorite!</span>
           <% end %>
         <% else %>
           <%= link_to 'Sign in to add to favorites', new_user_session_path %>

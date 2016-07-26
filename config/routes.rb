@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :movies do
     post :result, on: :collection
+    patch :add_to_favorites, on: :member
     resources :reviews do
       patch :report, on: :member
     end

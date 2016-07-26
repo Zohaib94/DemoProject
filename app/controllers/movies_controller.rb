@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :new, :create, :update, :destroy]
-  before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy, :add_to_favorites]
   before_action :verify_movie_approval, only: [:show]
   before_action :get_latest_reviews, only: [:show]
 
@@ -67,8 +67,12 @@ class MoviesController < ApplicationController
     end
   end
 
-  def result
-    @search_results = Movie.search_movies(params)
+
+  def add_to_favorites
+    return nil if @movie.has_favorite?(current_user)
+    @favorite_movie = @movie.favorite_movies.new
+    @favorite_movie.user = current_user
+    @favorite_movie.save
   end
 
   private
