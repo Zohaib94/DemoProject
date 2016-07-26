@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def display_movie_heading(type)
-    if type && type.in?(Movie::TYPES)
+    if type && type.in?(Movie::MOVIE_TYPES)
       type.capitalize
     end
   end
