@@ -5,6 +5,8 @@ class Actor < ActiveRecord::Base
   GENDERS =  %w(Male Female)
 
   validates :first_name, :last_name, :gender, :birth_date, presence: true
+  validates :gender, inclusion: { in: %w(Male Female), message: "%{value} is not valid" }
+
 
   def name
     [self.first_name, self.last_name].join(' ')
