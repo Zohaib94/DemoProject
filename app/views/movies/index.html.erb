@@ -13,7 +13,7 @@
 
       <div id='index-display'>
         <h1 class='sub-heading'>
-          <%= display_heading(params[:type]) %> Movies
+          <%= display_movie_heading(params[:type]) %> Movies
         </h1>
 
         <%= render partial: 'index_movies', locals: { movies: @movies, top: nil } %>
