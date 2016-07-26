@@ -61,7 +61,7 @@
           </div>
           <div class='field form-group'>
             <%= f.label :actors, 'Starring Actors' %>
-            <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'name', @selected), {}, { multiple: true, class: 'form-control' } %>
+            <%= f.select :actor_ids, options_from_collection_for_select(@actors, 'id', 'full_name', @selected), {}, { multiple: true, class: 'form-control' } %>
           </div>
           <div class='actions form-group'>
             <%= f.submit button_title('Movie'), class: 'btn btn-success col-centered form-control' %>

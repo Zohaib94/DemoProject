@@ -44,7 +44,7 @@ class Movie < ActiveRecord::Base
   end
 
   def display_actors
-    self.actors.collect(&:name).join(',')
+    self.actors.collect(&:full_name).join(',')
   end
 
   def has_favorite?(user)
