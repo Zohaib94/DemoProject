@@ -19,7 +19,5 @@ $(document).on 'ready page:load', ->
         method: 'PATCH'
         data: rating:
           score: score
-          movie_id: query_array[2]
-          user_id: $('#rating_user_id').attr('value')
         async: true
         success: alert('Updated Successfully')

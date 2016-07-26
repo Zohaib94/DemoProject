@@ -8,11 +8,7 @@ class Rating < ActiveRecord::Base
 
   def self.set_rating(movie_id, user_id)
     rating = Rating.where(movie_id: movie_id, user_id: user_id)
-    unless rating.count == 0
-      rating.first
-    else
-      Rating.create(score: 0)
-    end
+    rating.count == 0 ? Rating.create(movie_id: movie_id, user_id: user_id, score: 0) : rating.first
   end
 
   def self.average(movie_id)
