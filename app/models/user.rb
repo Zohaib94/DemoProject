@@ -32,4 +32,7 @@ class User < ActiveRecord::Base
     Movie.where(id: movie_ids)
   end
 
+  def has_already_favorite?(movie)
+    self.favorite_movies.where(movie: movie).present?
+  end
 end

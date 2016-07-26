@@ -12,13 +12,19 @@
       </div>
 
       <div id='favorite-btn'>
+
         <% if user_signed_in? %>
-          <%= form_for([@movie, @movie.favorite_movies.build], remote: true) do |f| %>
-            <%= f.submit 'Add to Favorites', class: 'btn btn-default form-control' %>
+          <% unless current_user.has_already_favorite?(@movie) %>
+            <%= form_for([@movie, @movie.favorite_movies.new], remote: true) do |f| %>
+              <%= f.submit 'Add to Favorites', class: 'btn btn-default form-control' %>
+            <% end %>
+            <% else %>
+              <span>Already a favorite!</span>
           <% end %>
         <% else %>
           <%= link_to 'Sign in to add to favorites', new_user_session_path %>
         <% end %>
+
       </div>
       <hr/>
 
