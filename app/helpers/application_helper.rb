@@ -1,10 +1,6 @@
 module ApplicationHelper
-  def button_title(value)
-    if action_name == 'new'
-      "Create #{value}"
-    else
-      "Update #{value}"
-    end
+  def button_title(model_name)
+    action_name == 'new' ? "Create #{model_name}" : "Update #{model_name}"
   end
 
   def alert_class_for(flash_type)
@@ -27,10 +23,6 @@ module ApplicationHelper
   end
 
   def date_display(date)
-    if date.present?
-      date_array = date.to_s.split('-')
-      [date_array[1], date_array[2], date_array[0]].join('-')
-    end
+    date.strftime('%m-%d-%Y') if date.present?
   end
-
 end

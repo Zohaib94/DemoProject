@@ -1,11 +1,7 @@
 module MoviesHelper
 
   def escape_script_tags(embed_url)
-    if embed_url.include?('<script>') && embed_url.include?('</script>')
-      safe_url = html_escape(embed_url)
-    else
-      embed_url
-    end
+    (embed_url.include?('<script>') && embed_url.include?('</script>')) ? html_escape(embed_url) : embed_url
   end
 
   def index_action?(action)
