@@ -5,11 +5,7 @@ class MoviesController < ApplicationController
   before_action :get_latest_reviews, only: [:show]
 
   def index
-    if params[:search].present?
-      @movies = Movie.basic_search(params)
-    else
-      @movies = Movie.get_movies(params[:type]).page(params[:page])
-    end
+    @movies = Movie.index_movies(params)
   end
 
   def new

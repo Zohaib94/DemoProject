@@ -1,10 +1,12 @@
 class Movie < ActiveRecord::Base
 
   DEFAULT_SEARCH_ORDER = 'updated_at DESC'
+  DEFAULT_SEARCH_FILTER = { approved: true }
   GENRES = %w(Action Horror Comedy Thriller Romance Sci-Fi Sports Tragedy Animated)
   TYPES = %w(latest featured)
+  RESULTS_PER_PAGE = 8
 
-  paginates_per 12
+  paginates_per RESULTS_PER_PAGE
 
   validates :title, :description, presence: true
   validates :title, uniqueness: true
@@ -49,21 +51,30 @@ class Movie < ActiveRecord::Base
     self.favorite_movies.where(user: user).present?
   end
 
+  def self.default_search_options(parameters)
+    {
+      order: DEFAULT_SEARCH_ORDER,
+      with: DEFAULT_SEARCH_FILTER,
+      conditions: {},
+      page: parameters[:page],
+      per_page: RESULTS_PER_PAGE
+    }
+  end
+
   def self.search_movies(parameters)
-    default_conditions = {}
-    default_conditions[:title] = parameters[:title] if parameters[:title].present?
-    default_conditions[:genre] = parameters[:genre] if parameters[:genre].present?
-    default_conditions[:actor_name] = parameters[:actor_name] if parameters[:actor_name].present?
+    search_options = Movie.default_search_options(parameters)
 
-    search_filter = { approved: true }
-    search_filter[:release_date] = date_range(parameters[:start_date], parameters[:end_date]) if parameters[:start_date].present?
+    search_options[:conditions][:title] = parameters[:title] if parameters[:title].present?
+    search_options[:conditions][:genre] = parameters[:genre] if parameters[:genre].present?
+    search_options[:conditions][:actor_name] = parameters[:actor_name] if parameters[:actor_name].present?
 
-    Movie.search(conditions: default_conditions, with: search_filter, order: DEFAULT_SEARCH_ORDER)
+    search_options[:with][:release_date] = date_range(parameters[:start_date], parameters[:end_date]) if parameters[:start_date].present?
+
+    Movie.search(search_options)
   end
 
   def self.basic_search(parameters)
-    search_filter = { approved: true }
-    Movie.search(parameters[:search], with: search_filter, order: DEFAULT_SEARCH_ORDER)
+    Movie.search(parameters[:search], with: DEFAULT_SEARCH_FILTER, order: DEFAULT_SEARCH_ORDER, page: parameters[:page], per_page: RESULTS_PER_PAGE)
   end
 
   def movie_hash
@@ -87,6 +98,16 @@ class Movie < ActiveRecord::Base
       Date.parse(date)
     rescue
       Date.today
+    end
+  end
+
+  def self.index_movies(params)
+    if params[:search].present?
+      Movie.basic_search(params)
+    elsif params[:type].present?
+      Movie.get_movies(params[:type]).page(params[:page])
+    else
+      Movie.search_movies(params)
     end
   end
 

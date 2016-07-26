@@ -1,5 +1,0 @@
-<% if @search_results.present? %>
-  $('#index-display').html("<h1 class='sub-heading'>Search Results</div><hr/><%= j (render partial: 'index_movies', locals: { movies: @search_results, top: nil }) %>");
-<% else %>
-  $('#index-display').html("<h1 class='sub-heading'>Search Results</h1><hr/><div class='center-text'>No Results Found!</div>");
-<% end %>
