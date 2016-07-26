@@ -1,5 +1,5 @@
 ACTORS = [
-          ['Tom', 'Cruise', 'Male', 'USA', 'New York', '1994-12-04',  'Tom Cruise is an American actor and filmmaker. Cruise has been nominated for three Academy Awards and has won three Golden Globe Awards. He started his career at age 19 in the 1981 film Endless Love'],
+          ['Tom', 'Cruise', 'Male', 'USA', 'New York', '1994-12-04', 'Tom Cruise is an American actor and filmmaker. Cruise has been nominated for three Academy Awards and has won three Golden Globe Awards. He started his career at age 19 in the 1981 film Endless Love'],
           ['Johnny', 'Depp', 'Male', 'USA', 'New York', '1994-12-04' , 'John Christopher "Johnny" Depp II is an American actor, producer, and musician. He has won the Golden Globe Award and Screen Actors Guild Award for Best Actor.'],
           ['Russell', 'Crowe', 'Male', 'USA', 'New York', '1994-12-04', 'Russell Ira Crowe is a New Zealand actor, film producer and musician. Although a New Zealander and New Zealand citizen, he has lived most of his life in Australia and identifies himself as an Australian.'],
           ['Brad', 'Pitt', 'Male', 'USA', 'New York', '1994-12-04', 'William Bradley "Brad" Pitt is an American actor and producer. He has received a Golden Globe Award, a Screen Actors Guild Award, and three Academy Award nominations in acting categories'],
