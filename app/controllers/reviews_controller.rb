@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_movie
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_review, only: [:show, :edit, :update, :destroy, :report]
 
   def new
     @review = Review.new
@@ -22,6 +22,13 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review.destroy
+  end
+
+  def report
+    return nil if @review.has_reported?(current_user)
+    @reported_review = @review.reported_reviews.new
+    @reported_review.user = current_user
+    @reported_review.save
   end
 
   private

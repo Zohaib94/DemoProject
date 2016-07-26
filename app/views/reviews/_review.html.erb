@@ -23,7 +23,7 @@
     <% unless is_review_owner?(review, current_user) %>
       <% unless current_user.has_reported?(review) %>
         <div class='col-md-2' id='report-div'>
-          <%= form_for([review, review.reported_reviews.new], remote: true) do |f| %>
+          <%= form_for(review, url: report_movie_review_path(review.movie, review), remote: true) do |f| %>
             <%= f.submit 'Report', class: 'btn btn-danger form-control' %>
           <% end %>
         </div>

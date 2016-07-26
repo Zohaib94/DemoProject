@@ -2,24 +2,16 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root 'pages#home'
+  root 'home#index'
 
   mount Ckeditor::Engine => '/ckeditor'
 
-  get 'pages/home', to: 'pages#home'
-
   resources :movies do
     post :result, on: :collection
-    resources :reviews
+    resources :reviews do
+      patch :report, on: :member
+    end
     resources :ratings
-  end
-
-  resources :reviews, only: [] do
-    resources :reported_reviews, only: [:create, :destroy]
-  end
-
-  resources :movies, only: [] do
-    resources :favorite_movies, only: [:create]
   end
 
   devise_for :users
