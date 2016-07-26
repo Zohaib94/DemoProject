@@ -1,14 +1,13 @@
 class ReportedReviewsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_reported_review, only: [:destroy]
   before_action :get_review
-  before_action :authenticate_user!
 
   def create
-    unless @review.has_reported?(current_user)
-      @reported_review = @review.reported_reviews.build
-      @reported_review.user = current_user
-      @reported_review.save
-    end
+    return nil if @review.has_reported?(current_user)
+    @reported_review = @review.reported_reviews.new
+    @reported_review.user = current_user
+    @reported_review.save
   end
 
   def destroy
