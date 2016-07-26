@@ -1,6 +1,7 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :new, :create, :update, :destroy]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show, :result]
+  before_action :verify_movie_approval, only: [:show]
   before_action :get_latest_reviews, only: [:show]
 
   def index
@@ -81,11 +82,11 @@ class MoviesController < ApplicationController
     end
 
     def get_latest_reviews
-      if @movie.approved?
-        @reviews = @movie.reviews.latest
-      else
-        redirect_to root_path, notice: 'Movie can not be viewed before admin approval'
-      end
+      @reviews = @movie.reviews.latest
+    end
+
+    def verify_movie_approval
+      redirect_to root_path, alert: 'Movie can not be viewed before admin approval' unless @movie.approved?
     end
 
 end
