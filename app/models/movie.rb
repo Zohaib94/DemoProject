@@ -1,7 +1,5 @@
 class Movie < ActiveRecord::Base
 
-  DEFAULT_SEARCH_ORDER = 'updated_at DESC'
-  DEFAULT_SEARCH_FILTER = { approved: true }
   GENRES = %w(Action Horror Comedy Thriller Romance Sci-Fi Sports Tragedy Animated)
   MOVIE_TYPES = %w(latest featured)
   RESULTS_PER_PAGE = 8
@@ -53,11 +51,12 @@ class Movie < ActiveRecord::Base
 
   def self.default_search_options(parameters)
     {
-      order: DEFAULT_SEARCH_ORDER,
-      with: DEFAULT_SEARCH_FILTER,
+      order: 'updated_at DESC',
+      with: { approved: true },
       conditions: {},
       page: parameters[:page],
-      per_page: RESULTS_PER_PAGE
+      per_page: RESULTS_PER_PAGE,
+      sql: { include: [:attachments] }
     }
   end
 
@@ -74,7 +73,7 @@ class Movie < ActiveRecord::Base
   end
 
   def self.basic_search(parameters)
-    Movie.search(parameters[:search], with: DEFAULT_SEARCH_FILTER, order: DEFAULT_SEARCH_ORDER, page: parameters[:page], per_page: RESULTS_PER_PAGE)
+    Movie.search(parameters[:search], with: { approved: true }, order: 'updated_at DESC', page: parameters[:page], per_page: RESULTS_PER_PAGE, sql: { include: [:attachments] })
   end
 
   def movie_hash
@@ -105,7 +104,7 @@ class Movie < ActiveRecord::Base
     if params[:search].present?
       Movie.basic_search(params)
     elsif params[:type].present?
-      Movie.get_movies(params[:type]).page(params[:page])
+      Movie.includes(:attachments).get_movies(params[:type]).page(params[:page])
     else
       Movie.search_movies(params)
     end

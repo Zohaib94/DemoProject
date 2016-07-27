@@ -74,7 +74,7 @@ class MoviesController < ApplicationController
   private
 
     def set_movie
-      @movie = Movie.find(params[:id])
+      @movie = Movie.includes(:reviews, :attachments, :ratings, :appearances, :favorite_movies).find(params[:id])
     end
 
     def movie_params
@@ -82,7 +82,7 @@ class MoviesController < ApplicationController
     end
 
     def get_latest_reviews
-      @reviews = @movie.reviews.latest
+      @reviews = @movie.reviews.latest.includes(:user, :reported_reviews)
     end
 
     def verify_movie_approval
