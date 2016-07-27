@@ -26,7 +26,7 @@ class Movie < ActiveRecord::Base
   scope :latest, -> { order(release_date: :desc) }
   scope :approved, -> { where(approved: true) }
   scope :featured, -> { where(featured: true).order(updated_at: :desc) }
-  scope :top, -> { joins(:ratings).where('movies.approved = true').group('movie_id').order('avg(ratings.score) desc') }
+  scope :top, -> { joins(:ratings).where('movies.approved = true AND ratings.score > 0').group('movie_id').order('avg(ratings.score) desc') }
   scope :waiting_for_approval, -> { where(approved: false) }
 
 

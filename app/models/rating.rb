@@ -12,6 +12,7 @@ class Rating < ActiveRecord::Base
   end
 
   def self.average(movie_id)
-    Rating.where(movie_id: movie_id).average(:score).to_f
+    ratings = Rating.where('score > 0')
+    ratings.where(movie_id: movie_id).average(:score).to_f
   end
 end
