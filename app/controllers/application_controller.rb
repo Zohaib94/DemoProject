@@ -4,7 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ThinkingSphinx::ConnectionError, with: :search_not_available
 
   protected
     def configure_permitted_parameters
@@ -14,5 +16,9 @@ class ApplicationController < ActionController::Base
 
     def not_found
       redirect_to root_path, alert: 'Not Found, Try again'
+    end
+
+    def search_not_available
+      redirect_to root_path, alert: 'Search is not available at the moment. Please try later'
     end
 end
