@@ -25,4 +25,12 @@ module ApplicationHelper
   def date_display(date)
     date.strftime('%m-%d-%Y') if date.present?
   end
+
+  def title(page_title)
+    content_for(:title) { page_title }
+  end
+
+  def create_page_title_heading(first_string, second_string)
+    [first_string, second_string].join(' ')
+  end
 end

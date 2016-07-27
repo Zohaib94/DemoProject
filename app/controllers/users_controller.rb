@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
+    @user_name = @user.full_name
     @favorite_movies = @user.get_favorite_movies.includes(:attachments).page(params[:page])
   end
 

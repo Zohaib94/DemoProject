@@ -11,9 +11,11 @@ class MoviesController < ApplicationController
   def new
     @movie = Movie.new
     @actors = Actor.all
+    @title = 'New Movie'
   end
 
   def show
+    @title = @movie.title
     if user_signed_in?
       @rating = Rating.set_rating(params[:id], current_user.id)
     end
@@ -21,6 +23,7 @@ class MoviesController < ApplicationController
   end
 
   def edit
+    @title = 'Edit Movie'
     @actors = Actor.all
     @selected = @movie.actors.pluck(:id)
     @actors_list = @actors.collect{|actor| [actor.name, actor.id]}

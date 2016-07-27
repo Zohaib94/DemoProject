@@ -3,6 +3,8 @@
 
   <% if params[:search].present? %>
 
+    <% title 'Search' %>
+
     <div id='index-display'>
       <h1 class='sub-heading'>Search Movies</h1>
       <%= render partial: 'index_movies', locals: { movies: @movies, top: nil } %>
@@ -13,6 +15,8 @@
     </div>
 
   <% elsif params[:type].present? %>
+
+    <% title display_movie_heading(params[:type]) %>
 
     <div id='index-display'>
       <h1 class='sub-heading'>
