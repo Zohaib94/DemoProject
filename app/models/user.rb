@@ -12,8 +12,8 @@ class User < ActiveRecord::Base
 
   GENDERS =  %w(Male Female)
 
-  validates :first_name, :last_name, presence: true
-  validates :gender, inclusion: { in: %w(Male Female), message: "%{value} is not valid" }
+  validates :first_name, :last_name, presence: true, length: { maximum: 50 }
+  validates :gender, presence: true, length: { maximum: 10 }, inclusion: { in: %w(Male Female), message: "%{value} is not valid" }
 
   def full_name
     [self.first_name , self.last_name].join(" ")

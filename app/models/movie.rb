@@ -6,9 +6,11 @@ class Movie < ActiveRecord::Base
 
   paginates_per RESULTS_PER_PAGE
 
-  validates :title, :description, presence: true
-  validates :title, uniqueness: true
+  validates :title, :description, :release_date, :trailer_url, presence: true
+  validates :title, uniqueness: true, length: { maximum: 50 }
   validates :description, length: { maximum: 255 }
+  validates :genre, length: { maximum: 20 }
+  validates :duration, length: { maximum: 5 }
   validates :trailer_url, length: { maximum: 1000 }
   validates :duration, numericality: { greater_than_or_equal_to: 0 }
 
