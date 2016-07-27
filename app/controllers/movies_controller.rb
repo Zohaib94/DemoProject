@@ -26,7 +26,7 @@ class MoviesController < ApplicationController
     @title = 'Edit Movie'
     @actors = Actor.all
     @selected = @movie.actors.pluck(:id)
-    @actors_list = @actors.collect{|actor| [actor.name, actor.id]}
+    @actors_list = @actors.collect{|actor| [actor.full_name, actor.id]}
   end
 
   def create
