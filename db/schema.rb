@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727103050) do
+ActiveRecord::Schema.define(version: 20160727110540) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -108,16 +108,17 @@ ActiveRecord::Schema.define(version: 20160727103050) do
   add_index "favorite_movies", ["user_id"], name: "index_favorite_movies_on_user_id", using: :btree
 
   create_table "movies", force: :cascade do |t|
-    t.string   "title",        limit: 255,   null: false
-    t.date     "release_date",               null: false
+    t.string   "title",        limit: 255,                  null: false
+    t.date     "release_date",                              null: false
     t.string   "genre",        limit: 20
     t.integer  "duration",     limit: 8
-    t.text     "description",  limit: 255,   null: false
-    t.text     "trailer_url",  limit: 65535, null: false
+    t.text     "description",  limit: 255,                  null: false
+    t.text     "trailer_url",  limit: 65535,                null: false
     t.boolean  "featured"
     t.boolean  "approved"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.boolean  "delta",                      default: true, null: false
   end
 
   add_index "movies", ["genre"], name: "index_movies_on_genre", using: :btree
