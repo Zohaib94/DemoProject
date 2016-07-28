@@ -12,7 +12,7 @@ class Api::V1::MoviesController < Api::V1::BaseController
   end
 
   def show
-    respond_with @movie.movie_hash
+    respond_with @movie.movie_hash(request.env['HTTP_HOST'].to_s)
   end
 
   private

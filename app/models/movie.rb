@@ -26,7 +26,7 @@ class Movie < ActiveRecord::Base
   scope :latest, -> { order(release_date: :desc) }
   scope :approved, -> { where(approved: true) }
   scope :featured, -> { where(featured: true).order(updated_at: :desc) }
-  scope :top, -> { joins(:ratings).where('movies.approved = true AND ratings.score > 0').group('movie_id').order('avg(ratings.score) desc') }
+  scope :top, -> { joins(:ratings).where('movies.approved = true AND ratings.score > 0').group(:id).order('avg(ratings.score) desc') }
   scope :waiting_for_approval, -> { where(approved: false) }
 
 
@@ -78,11 +78,18 @@ class Movie < ActiveRecord::Base
     Movie.search(parameters[:search], with: { approved: true }, order: 'updated_at DESC', page: parameters[:page], per_page: RESULTS_PER_PAGE, sql: { include: [:attachments] })
   end
 
-  def movie_hash
+  def movie_hash(base_url)
+    movie_attachments = []
+
+    attachments.each do |attachment|
+      movie_attachments << [base_url, attachment.image.url(:medium)].join
+    end
+
     {
       movie_details: self,
-      actors: self.actors.pluck(:id, :first_name, :last_name, :gender),
-      reviews: self.reviews.pluck(:id, :comment)
+      actors: actors.pluck(:id, :first_name, :last_name, :gender),
+      reviews: reviews.pluck(:id, :comment),
+      attachments: movie_attachments
     }
   end
 
