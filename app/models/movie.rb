@@ -56,8 +56,6 @@ class Movie < ActiveRecord::Base
       order: 'updated_at DESC',
       with: { approved: true },
       conditions: {},
-      page: parameters[:page],
-      per_page: RESULTS_PER_PAGE,
       sql: { include: [:attachments] }
     }
   end
