@@ -1,13 +1,13 @@
 $(document).on 'ready page:load', ->
   $('.average-stars').raty
-    path: '/assets/'
+    path: '/assets/images/'
     score: ->
       $(this).attr 'data-score'
     readOnly: true
     half: true
 
   $('.rating-stars').raty
-    path: '/assets/'
+    path: '/assets/images/'
     score: ->
       $(this).attr 'data-score'
     click: (score, evt) ->
