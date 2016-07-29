@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_movie
   before_action :set_review, only: [:show, :edit, :update, :destroy, :report]
+  before_action :review_owner, only: [:edit, :destroy]
 
   def new
     @review = Review.new
@@ -44,5 +45,9 @@ class ReviewsController < ApplicationController
 
     def set_movie
       @movie = Movie.find(params[:movie_id])
+    end
+
+    def review_owner
+      redirect_to root_path unless current_user == @review.user
     end
 end
