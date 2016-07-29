@@ -1,6 +1,6 @@
 <%= form_tag movies_path, method: :get, class: 'form-inline search-bar' do %>
   <div class='form-group'>
-    <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search Movies Here' %>
+    <%= text_field_tag :search, params[:search], class: 'form-control search-field', placeholder: 'Search Movies Here' %>
   </div>
 
   <%= submit_tag 'Search', class: 'btn btn-default form-control' %>
