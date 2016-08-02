@@ -2,13 +2,9 @@
 <div class='container'>
   <div class='row'>
     <div class='col-sm-4'>
-      <div class='round-borders'>
-        <%= render partial: 'image', locals: { attachment: @movie.attachments.first } %>
-      </div>
-      <hr/>
+      <%= render partial: 'shared/carousel', locals: { attachments: @movie.attachments } %>
+      <%= render partial: 'shared/modal_box' %>
       <div>
-        <h2>Posters</h2>
-        <%= render partial: 'images', locals: { attachments: @movie.attachments } %>
         <%= render partial: 'ratings' %>
       </div>
 
@@ -85,7 +81,7 @@
 
         <div class='col-sm-4'>
           <h3>Actors</h3>
-          <%= display_value @movie.display_actors %>
+          <%= render partial:'actors', locals: { actors: @actors } %>
         </div>
       </div>
 

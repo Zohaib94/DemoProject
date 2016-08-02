@@ -1,0 +1,32 @@
+<% title @title %>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-4'>
+      <%= render partial: 'shared/carousel', locals: { attachments: @actor.attachments } %>
+      <%= render partial: 'shared/modal_box' %>
+      <hr/>
+      <strong>Country: </strong><%= display_value(@actor.country) %>
+      <hr/>
+      <strong>City: </strong><%= display_value(@actor.city) %>
+      <hr />
+      <strong>Gender: </strong><%= display_value(@actor.gender) %>
+      <hr/>
+      <strong>Date of Birth: </strong><%= display_value(date_display(@actor.birth_date)) %>
+      <hr/>
+    </div>
+    <div class='col-md-8'>
+      <h1><%= @title %></h1>
+      <hr/>
+      <h2>Biography:</h2>
+      <div id='actor-biography'>
+        <%= @actor.biography %>
+      </div>
+      <hr/>
+      <h3>Appearances:</h3>
+      <%= render partial: 'movies/index_movies', locals: { movies: @movies, top: nil } %>
+      <div align='center'>
+        <%= paginate @movies %>
+      </div>
+    </div>
+  </div>
+</div>
