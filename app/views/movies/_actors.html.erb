@@ -1,3 +1,8 @@
-<% actors.each do |actor| %>
-  <div> <%= actor.full_name %> </div>
+<% if actors.empty? %>
+  <div>Not Available</div>
+<% else %>
+  <% actors.each do |actor| %>
+    <% actor == actors.last ? separator = '' : separator = ',' %>
+    <%= link_to [actor.full_name, separator].join, actor_path(actor) %>
+  <% end %>
 <% end %>
