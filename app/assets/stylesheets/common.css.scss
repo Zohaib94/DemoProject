@@ -185,3 +185,7 @@ body {
 #review-comment {
   word-wrap: break-word;
 }
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+  width: 100%;
+}
