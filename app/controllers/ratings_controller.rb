@@ -4,7 +4,7 @@ class RatingsController < ApplicationController
 
   def update
     @rating.update(rating_params)
-    @average = Rating.average_by_score(@rating.movie_id)
+    @average = Rating.average(@rating.movie_id)
   end
 
   def destroy
