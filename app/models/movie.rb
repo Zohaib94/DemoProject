@@ -1,8 +1,10 @@
 class Movie < ActiveRecord::Base
 
   GENRES = %w(Action Horror Comedy Thriller Romance Sci-Fi Sports Tragedy Animated)
-  MOVIE_TYPES = %w(latest featured)
+  MOVIE_TYPES = %w(latest featured all)
   RESULTS_PER_PAGE = 8
+  ORDERING_FIELDS = %w(rating release)
+  ORDERS = %w(ascending descending)
 
   paginates_per RESULTS_PER_PAGE
 
@@ -26,9 +28,10 @@ class Movie < ActiveRecord::Base
   scope :latest, -> { order(release_date: :desc) }
   scope :approved, -> { where(approved: true) }
   scope :featured, -> { where(featured: true).order(updated_at: :desc) }
-  scope :top, -> { joins(:ratings).where('movies.approved = true AND ratings.score > 0').group(:id).order('avg(ratings.score) desc') }
+  scope :top, -> { joins(:ratings).where('movies.approved = true AND ratings.score > 0').group('movies.id').order('avg(ratings.score) desc') }
   scope :waiting_for_approval, -> { where(approved: false) }
-
+  scope :oldest, -> { order(release_date: :asc) }
+  scope :lowest_rated, -> { joins(:ratings).where('movies.approved = true AND ratings.score > 0').group('movies.id').order('avg(ratings.score) asc') }
 
   def image_path
     first_attachment = attachments.first
@@ -37,10 +40,13 @@ class Movie < ActiveRecord::Base
 
   def self.get_movies(type_param)
     if type_param.in? MOVIE_TYPES
-      type_param == "latest" ? self.approved.latest : self.approved.featured
+      movies = self.approved.latest if type_param == 'latest'
+      movies = self.approved.featured if type_param == 'featured'
+      movies = self.approved.all if type_param == 'all'
     else
-      self.approved.all
+      movies = self.approved.all
     end
+    movies
   end
 
   def display_actors
@@ -56,16 +62,18 @@ class Movie < ActiveRecord::Base
       order: 'updated_at DESC',
       with: { approved: true },
       conditions: {},
-      sql: { include: [:attachments] }
+      sql: { include: [:attachments] },
+      page: parameters[:page],
+      per_page: RESULTS_PER_PAGE
     }
   end
 
   def self.search_movies(parameters)
     search_options = Movie.default_search_options(parameters)
 
-    search_options[:conditions][:title] = parameters[:title] if parameters[:title].present?
-    search_options[:conditions][:genre] = parameters[:genre] if parameters[:genre].present?
-    search_options[:conditions][:actor_name] = parameters[:actor_name] if parameters[:actor_name].present?
+    search_options[:conditions][:title] = serialize_query_string(parameters[:title]) if parameters[:title].present?
+    search_options[:conditions][:genre] = serialize_query_string(parameters[:genre]) if parameters[:genre].present?
+    search_options[:conditions][:actor_name] = serialize_query_string(parameters[:actor_name]) if parameters[:actor_name].present?
 
     search_options[:with][:release_date] = date_range(parameters[:start_date], parameters[:end_date]) if parameters[:start_date].present?
 
@@ -73,7 +81,7 @@ class Movie < ActiveRecord::Base
   end
 
   def self.basic_search(parameters)
-    Movie.search(parameters[:search], with: { approved: true }, order: 'updated_at DESC', page: parameters[:page], per_page: RESULTS_PER_PAGE, sql: { include: [:attachments] })
+    Movie.search(serialize_query_string(parameters[:search]), with: { approved: true }, order: 'updated_at DESC', page: parameters[:page], per_page: RESULTS_PER_PAGE, sql: { include: [:attachments] })
   end
 
   def movie_hash(base_url)
@@ -115,6 +123,22 @@ class Movie < ActiveRecord::Base
     else
       Movie.search_movies(params)
     end
+  end
+
+  def self.order_movies(params)
+    if params[:ordering_field].present? && params[:order].present?
+      sorted_movies = Movie.oldest if params[:ordering_field] == 'release' && params[:order] == 'ascending'
+      sorted_movies = Movie.latest if params[:ordering_field] == 'release' && params[:order] == 'descending'
+      sorted_movies = Movie.top if params[:ordering_field] == 'rating' && params[:order] == 'descending'
+      sorted_movies = Movie.lowest_rated if params[:ordering_field] == 'rating' && params[:order] == 'ascending'
+    else
+      sorted_movies = Movie.all
+    end
+    sorted_movies
+  end
+
+  def self.serialize_query_string(string)
+    string.gsub(/[^0-9A-Za-z ]/, '')
   end
 
 end

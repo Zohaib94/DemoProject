@@ -1,11 +1,14 @@
 class MoviesController < ApplicationController
+
   before_action :authenticate_user!, only: [:edit, :new, :create, :update, :destroy]
   before_action :set_movie, only: [:show, :edit, :update, :destroy, :add_to_favorites]
   before_action :verify_movie_approval, only: [:show]
   before_action :get_latest_reviews, only: [:show]
 
   def index
+    params[:type] = 'all' if all_params_nil?
     @movies = Movie.index_movies(params)
+    @title = [display_movie_heading(params[:type]), 'Movies'].join(' ') if params[:type].present?
   end
 
   def new
@@ -20,6 +23,7 @@ class MoviesController < ApplicationController
       @rating = Rating.set_rating(params[:id], current_user.id)
     end
     @average_rating = Rating.average(params[:id])
+    @actors = @movie.actors
   end
 
   def edit
@@ -74,6 +78,10 @@ class MoviesController < ApplicationController
     @favorite_movie.save
   end
 
+  def sort_all
+    @sorted_movies = Movie.order_movies(params).page(params[:page])
+  end
+
   private
 
     def set_movie
@@ -90,6 +98,10 @@ class MoviesController < ApplicationController
 
     def verify_movie_approval
       redirect_to root_path, alert: 'Movie can not be viewed before admin approval' unless @movie.approved?
+    end
+
+    def all_params_nil?
+      params[:type].nil? && params[:search].blank? && params[:actor_name].nil? && params[:title].nil? && params[:start_date].nil? && params[:end_date].nil? && params[:genre].nil?
     end
 
 end

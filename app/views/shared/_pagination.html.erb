@@ -1,0 +1,5 @@
+<% if params[:controller] != 'home' && params[:controller] != 'users' && params[:controller] != 'actors' %>
+  <div align='center'>
+    <%= paginate resources, remote: true %>
+  </div>
+<% end %>

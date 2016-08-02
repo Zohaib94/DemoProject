@@ -1,0 +1,21 @@
+<div class='row'>
+  <div class='col-md-9 col-centered'>
+    <%= form_tag(sort_all_movies_path, method: :get, remote: true) do %>
+
+      <div class='col-sm-6'>
+        <%= label_tag :ordering_field %>
+        <%= select_tag :ordering_field, options_for_select(Movie::ORDERING_FIELDS.map{ |ordering_field| [ordering_field.titleize, ordering_field]}), class: 'form-control', prompt: 'Select Ordering Field' %>
+      </div>
+
+      <div class='col-sm-6'>
+        <%= label_tag :order %>
+        <%= select_tag :order, options_for_select(Movie::ORDERS.map{ |order| [order.titleize, order] }), class: 'form-control' %>
+      </div>
+
+      <div class='col-sm-12'>
+        <%= submit_tag('Sort', class: 'btn btn-default form-control margin') %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

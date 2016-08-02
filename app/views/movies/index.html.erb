@@ -1,23 +1,24 @@
-<div class='col-md-8 col-centered'>
-  <%= render partial: 'search_bar' %>
-
+<div class='col-md-12 col-centered'>
   <% if params[:search].present? %>
 
     <% title 'Search' %>
+
+    <div class='col-md-9 col-centered'>
+      <%= render partial: 'search_bar' %>
+    </div>
 
     <div id='index-display'>
       <h1 class='sub-heading'>Search Movies</h1>
       <%= render partial: 'index_movies', locals: { movies: @movies, top: nil } %>
 
-      <div align='center'>
-        <%= paginate @movies %>
-      </div>
     </div>
 
   <% elsif params[:type].present? %>
 
     <% title display_movie_heading(params[:type]) %>
-
+    <% if params[:type] == 'all' %>
+      <%= render partial: 'order_bar' %>
+    <% end %>
     <div id='index-display'>
       <h1 class='sub-heading'>
         <%= display_movie_heading(params[:type]) %> Movies
@@ -25,12 +26,12 @@
 
       <%= render partial: 'index_movies', locals: { movies: @movies, top: nil } %>
 
-      <div align='center'>
-        <%= paginate @movies %>
-      </div>
     </div>
 
   <% else %>
+    <div class='col-md-9 col-centered'>
+      <%= render partial: 'search_bar' %>
+    </div>
     <div id='index-display'></div>
   <% end %>
 

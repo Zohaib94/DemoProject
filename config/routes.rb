@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :movies do
     post :result, on: :collection
     patch :add_to_favorites, on: :member
+    get :sort_all, on: :collection
     resources :reviews do
       patch :report, on: :member
     end
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :actors, only: [:show]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
